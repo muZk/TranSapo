@@ -74,7 +74,7 @@ namespace TranSapo.Models
         public Comentario Comentario { get; set; }
     }
 
-    public class Conexto : DbContext
+    public class Contexto : DbContext
     {
         public DbSet<Comentario> Comentarios { get; set; }
         public DbSet<ComentarioInformacion> ComentariosInformacion { get; set; }
