@@ -1,0 +1,7 @@
+C:\Users\MarRanO_\TranSapo\TranSapo\TranSapo\bin\TranSapo.dll
+C:\Users\MarRanO_\TranSapo\TranSapo\TranSapo\bin\TranSapo.pdb
+C:\Users\MarRanO_\TranSapo\TranSapo\TranSapo\bin\EntityFramework.dll
+C:\Users\MarRanO_\TranSapo\TranSapo\TranSapo\bin\EntityFramework.xml
+C:\Users\MarRanO_\TranSapo\TranSapo\TranSapo\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\MarRanO_\TranSapo\TranSapo\TranSapo\obj\Debug\TranSapo.dll
+C:\Users\MarRanO_\TranSapo\TranSapo\TranSapo\obj\Debug\TranSapo.pdb

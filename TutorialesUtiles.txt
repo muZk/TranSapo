@@ -1,0 +1,3 @@
+Implementación de BD y manejo:
+
+http://speakingin.net/2011/07/10/ef-code-first-y-data-scaffolding-con-asp-net-mvc-3-tools-update/
