@@ -3,7 +3,7 @@
 namespace tranSapo.Models
 {
 
-    enum Estado { detenido, lleno, problemas, panne }
+    public enum Estado { detenido, lleno, problemas, panne }
 
     public class tranSapoContext: DbContext
     {
