@@ -10,3 +10,13 @@
 <p>@Html.ActionLink("Recorrido","Index","Recorrido")</p>
 <p>@Html.ActionLink("Recorrido y Paradero","Index","RecorridoParadero")</p>
 <p>@Html.ActionLink("Informacion","Index","Informacion")</p>
+
+<h2>Busqueda</h2>
+
+@using (Html.BeginForm("ObtenerInformacion","Home"))
+{
+    <p>
+        Paradero: @Html.TextBox("busqueda")
+    </p>
+    <input type="submit" value="Buscar" />
+}

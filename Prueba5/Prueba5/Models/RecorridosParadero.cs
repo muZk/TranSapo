@@ -12,5 +12,6 @@ namespace Prueba5.Models
         public virtual int ParaderoID { get; set; }
         public virtual Recorrido Recorrido { get; set; }
         public virtual int RecorridoID { get; set; }
+        public virtual int NumeroParada { get; set; }
     }
 }
