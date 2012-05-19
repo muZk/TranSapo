@@ -12,3 +12,10 @@ C:\Users\muZk\TranSapo\Prueba5\Prueba5\bin\EntityFramework.xml
 C:\Users\muZk\TranSapo\Prueba5\Prueba5\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\muZk\TranSapo\Prueba5\Prueba5\obj\Debug\Prueba5.dll
 C:\Users\muZk\TranSapo\Prueba5\Prueba5\obj\Debug\Prueba5.pdb
+C:\Users\MarRanO_\TranSapo\Prueba6\Prueba5\bin\Prueba5.dll
+C:\Users\MarRanO_\TranSapo\Prueba6\Prueba5\bin\Prueba5.pdb
+C:\Users\MarRanO_\TranSapo\Prueba6\Prueba5\bin\EntityFramework.dll
+C:\Users\MarRanO_\TranSapo\Prueba6\Prueba5\bin\EntityFramework.xml
+C:\Users\MarRanO_\TranSapo\Prueba6\Prueba5\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\MarRanO_\TranSapo\Prueba6\Prueba5\obj\Debug\Prueba5.dll
+C:\Users\MarRanO_\TranSapo\Prueba6\Prueba5\obj\Debug\Prueba5.pdb

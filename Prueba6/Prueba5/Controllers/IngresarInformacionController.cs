@@ -19,26 +19,24 @@ namespace Prueba5.Controllers
         {
             if (ModelState.IsValid)
             {
-                int largo = model.ParaderoRecorrido.Split(' ').Length;
-                if (largo < 2)
+                string[] PR= model.ParaderoRecorrido.Split(' ');
+                List<string> ListaParametros=new List<string>();
+
+                foreach (string parametro in PR)
                 {
-                    ModelState.AddModelError("", "Hubieron errores en el formato");
-                    return View(model);
+                    ListaParametros.Add(parametro.ToUpper());
                 }
-                string Paradero = model.ParaderoRecorrido.Split(' ')[0].ToUpper();
-                string Recorrido = model.ParaderoRecorrido.Split(' ')[1].ToUpper();
-                string Estado=null;
-                if(largo==3)
-                Estado= model.ParaderoRecorrido.Split(' ')[2].ToUpper();
+                
                 bool RecorridoParaderoExiste = false;
                 bool RecorridoExiste = false;
                 bool ParaderoExiste = false;
                 int id_p=-1, id_r=-1;
                 TranSapoContext db = new TranSapoContext();
 
+                
                 //Existe el paradero
                 var p_existe = from Paradero p in db.Paradero
-                               where p.codigo.ToUpper() == Paradero
+                               where ListaParametros.Contains(p.codigo.ToUpper())
                                select p;
                 foreach (Paradero p in p_existe)
                 {
@@ -48,7 +46,7 @@ namespace Prueba5.Controllers
 
                 //Existe el recorrido
                 var r_existe = from Recorrido r in db.recorrido
-                               where r.numero.ToUpper() == Recorrido
+                               where ListaParametros.Contains(r.numero.ToUpper())
                                select r;
                 foreach (Recorrido r in r_existe)
                 {
@@ -58,37 +56,48 @@ namespace Prueba5.Controllers
 
                 //Existe la relación Paradero-Recorrido
                 var rp_existe = from RecorridosParadero rp in db.recorridosParadero
-                                where rp.Paradero.codigo.ToUpper() == Paradero &&
-                                rp.Recorrido.numero.ToUpper() == Recorrido
+                                where ListaParametros.Contains(rp.Paradero.codigo.ToUpper()) &&
+                                ListaParametros.Contains(rp.Recorrido.numero.ToUpper())
                                 select rp;
                 foreach (RecorridosParadero rp in rp_existe)
                     RecorridoParaderoExiste = true;
 
                 if (RecorridoParaderoExiste)
                 {
-                    int estado = 0;
-                    switch (Estado)
+                    int estado=2;
+                    bool encontrado = false;
+                    foreach (string Estado in ListaParametros)
                     {
-                        case "PA":
-                            estado = 1;
-                            break;
-                        case "V":
-                            estado = 2;
-                            break;
-                        case "LL":
-                            estado = 3;
-                            break;
-                        case "D":
-                            estado = 4;
-                            break;
-                        case "PR":
-                            estado = 5;
-                            break;
-                        default:
-                            estado = 2;
-                            break;
+                        if (!encontrado)
+                        {
+                            switch (Estado)
+                            {
+                                case "PA":
+                                    estado = 1;
+                                    encontrado = true;
+                                    break;
+                                case "V":
+                                    estado = 2;
+                                    encontrado = true;
+                                    break;
+                                case "LL":
+                                    estado = 3;
+                                    encontrado = true;
+                                    break;
+                                case "D":
+                                    estado = 4;
+                                    encontrado = true;
+                                    break;
+                                case "PR":
+                                    estado = 5;
+                                    encontrado = true;
+                                    break;
+                                default:
+                                    estado = 2;
+                                    break;
+                            }
+                        }
                     }
-
                     Informacion tsInfo= new Informacion();
                     tsInfo.ParaderoID = id_p;
                     tsInfo.RecorridoID = id_r;
@@ -106,11 +115,11 @@ namespace Prueba5.Controllers
                     //Algo no funciona bien, lanzar mensaje de error
                     if (!ParaderoExiste)
                     {
-                        ModelState.AddModelError("", "El Paradero no Existe");
+                        ModelState.AddModelError("", "No se encontró el paradero");
                     }
                     if (!RecorridoExiste)
                     {
-                        ModelState.AddModelError("", "El Recorrido no Existe");
+                        ModelState.AddModelError("", "No se encontró el recorrido");
                     }
                     if (ParaderoExiste && RecorridoExiste)
                     {
