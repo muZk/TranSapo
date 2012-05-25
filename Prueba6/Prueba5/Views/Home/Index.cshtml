@@ -1,20 +1,69 @@
-﻿@{
-    ViewBag.Title = "Index";
+﻿@model Prueba5.Models.IngresarInformacion
+
+@{
+    ViewBag.Title = "TranSapo";
 }
 
-<table align="center" style="width:100%;height:100%;">
-    <tr>
-        <td>  
-        @using (Html.BeginForm("Index", "Search"))
-        {
-            <input type="submit" value="Obtenga información de los próximos buses!" />
-        }
+<h2>Index</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true,"No se pudo ingresar la información")
+    if (Prueba5.Controllers.HomeController.GraciasMsg)
+    {
+        <p><font size=3 color=green>¡Gracias por tu Aporte!</font></p>
+        Prueba5.Controllers.HomeController.GraciasMsg = false;
+    }
+    <fieldset>
+        <legend>IngresarInformacion</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ParaderoRecorrido)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ParaderoRecorrido)
+            @Html.ValidationMessageFor(model => model.ParaderoRecorrido)
+        </div>
+
+        <table border="0" width="205">
+            <tr>
+                <td align="center"><button name="button" value="Ingresar">Ingresar</button></td>
+                <td align="center"><button name="button" value="Buscar">Buscar</button></td>
+            </tr>
+        </table>
+        
+    </fieldset>
+    <table width="100%">
+     <tr valign="top">
+        <td>
+            <p>
+            <br />Ejemplos de búsqueda
+            <ul>
+            <li>PARADERO RECORRIDO </li> <i>ej: P100 428</i>
+            <li>PARADERO</li> <i>ej: P100</i>
+            <li>RECORRIDO</li> <i>ej: 428</i>
+            </ul>
+            </p>
         </td>
-        <td>   
-        @using (Html.BeginForm("Index", "IngresarInformacion"))
-        {
-            <input type="submit" value="Vuélvase un TranSapo reportando!" />
-        } 
+        <td>
+            <p>
+            <br />Ejemplos de ingreso
+            <ul>
+            <li>PARADERO RECORRIDO </li> <i>ej: P100 428</i>
+            <li>PARADERO RECORRIDO ESTADO</li> <i>ej: P100 428 LL</i>
+            <li>Estados Posibles:</li> 
+            <ul>
+            <li>LL: <i>Lleno</i></li>
+            <li>V: <i>Vacio</i></li>
+            <li>PR: <i>Con Problemas</i></li>
+            <li>PA: <i>En Panne</i></li>
+            <li>D: <i>Detenido</i></li>
+            </ul>
+            </ul>
+            </p>
         </td>
-    </tr>
-</table>
+        </tr></table>
+}

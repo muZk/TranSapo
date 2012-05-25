@@ -65,16 +65,13 @@
     <Compile Include="Controllers\Testing\EstadoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Testing\InformacionController.cs" />
-    <Compile Include="Controllers\IngresarInformacionController.cs" />
     <Compile Include="Controllers\Testing\ParaderoController.cs" />
     <Compile Include="Controllers\Testing\RecorridoController.cs" />
     <Compile Include="Controllers\Testing\RecorridoParaderoController.cs" />
-    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\Testing\TestingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Logica\Busqueda.cs" />
     <Compile Include="Models\CallesParadero.cs" />
     <Compile Include="Models\Comentario.cs" />
     <Compile Include="Models\ComentarioInformacion.cs" />
@@ -233,19 +230,10 @@
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Search\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Search\Results.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Testing\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\IngresarInformacion\CrearInfo.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\IngresarInformacion\Index.cshtml" />
+    <Content Include="Views\Home\Resultado.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

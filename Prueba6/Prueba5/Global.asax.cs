@@ -37,7 +37,7 @@ namespace Prueba5
 
             // Sample URL: /Search
             RouteTable.Routes.MapRoute(
-                "Search", "Search/{query}", new { controller = "Search", action = "Results" }
+                "Search", "Busqueda/{query}", new { controller = "Home", action = "Resultado" }
                 );
 
             RegisterGlobalFilters(GlobalFilters.Filters);
