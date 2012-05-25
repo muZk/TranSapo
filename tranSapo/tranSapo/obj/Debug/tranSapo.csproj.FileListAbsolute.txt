@@ -1,7 +1,0 @@
-C:\Users\muZk\TranSapo\tranSapo\tranSapo\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\muZk\TranSapo\tranSapo\tranSapo\bin\tranSapo.dll
-C:\Users\muZk\TranSapo\tranSapo\tranSapo\bin\tranSapo.pdb
-C:\Users\muZk\TranSapo\tranSapo\tranSapo\bin\EntityFramework.dll
-C:\Users\muZk\TranSapo\tranSapo\tranSapo\bin\EntityFramework.xml
-C:\Users\muZk\TranSapo\tranSapo\tranSapo\obj\Debug\tranSapo.dll
-C:\Users\muZk\TranSapo\tranSapo\tranSapo\obj\Debug\tranSapo.pdb
