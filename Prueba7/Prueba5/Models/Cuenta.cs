@@ -14,5 +14,7 @@ namespace Prueba5.Models
             public virtual string Nombre { get; set; }
             public virtual string password { get; set; }
             public virtual string username { get; set; }
+            public virtual bool validado { get; set; }
+            public virtual string parametroValidador { get; set; }
     }
 }
