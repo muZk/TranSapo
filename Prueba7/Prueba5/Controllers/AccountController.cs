@@ -187,7 +187,9 @@ namespace Prueba5.Controllers
                     c.validado = true;
                     db.Entry(c).State = EntityState.Modified;
                     db.SaveChanges();
-                    //Aquí crear directamente la cookie
+
+                    FormsAuthentication.SetAuthCookie(c.username, false);
+                    
                  }
             }
             return RedirectToAction("Index", "Home");
