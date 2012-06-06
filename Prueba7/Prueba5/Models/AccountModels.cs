@@ -43,6 +43,10 @@ namespace Prueba5.Models
         [Required(ErrorMessage = "Debe ingresar su Contraseña")]
         [Display(Name="Contraseña")]
         public string Password { get; set; }
+
+        [Display(Name="Conectarse automáticamente en cada visita")]
+        public bool AutoLogin { get; set; }
+
     }
 
 

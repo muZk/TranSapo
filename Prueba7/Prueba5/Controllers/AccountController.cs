@@ -96,15 +96,21 @@ namespace Prueba5.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (UsernamePassword(model.Username,model.Password)) // Corresponden los datos?
+                Cuenta cuenta = GetCuenta(model.Username);
+
+                if ((cuenta == null) || (cuenta.password != model.Password))
                 {
-                    FormsAuthentication.SetAuthCookie(model.Username, false);
-                    HomeController.Mensajes.Add("¡Inicio de sesión exitoso!");
-                    return RedirectToAction("Index", "Home");
+                    ModelState.AddModelError("", "Username o Password inválido.");
+                }
+                else if (cuenta.validado == false)
+                {
+                    ModelState.AddModelError("", "Aún no has validado tu cuenta. Por favor revisa tu correo y haz click en el enlace de confirmación.");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Username o Password inválido.");
+                    FormsAuthentication.SetAuthCookie(model.Username, model.AutoLogin);
+                    HomeController.Mensajes.Add("¡Inicio de sesión exitoso!");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             return View();
@@ -206,6 +212,14 @@ namespace Prueba5.Controllers
         }
 
         #region Metodos privados .. ¿Existe Username?  ¿Existe Email? ¿Usuario y contraseña correctos?
+
+        private Cuenta GetCuenta(string username)
+        {
+            TranSapoContext tsc = new TranSapoContext();
+            var query = from cuenta in tsc.Cuentas where cuenta.username == username select cuenta;
+            return query.First<Cuenta>();
+        }
+
         private bool ExisteUsername(string username)
         {
             var query = from cuenta in transapoContext.Cuentas where cuenta.username == username select cuenta;

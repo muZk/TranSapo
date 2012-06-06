@@ -333,3 +333,14 @@ ul#logindisplay li
 .tri-state {
     width: 6em;
 }
+
+.col {
+	float: left;
+	width: 292px;
+	margin: 0 30px 15px 0;
+}
+
+.last {
+	float: right;
+	margin-right: 0;
+}

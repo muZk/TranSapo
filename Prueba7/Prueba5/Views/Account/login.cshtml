@@ -19,5 +19,9 @@
         @Html.LabelFor(m => m.Password)
         @Html.PasswordFor(m => m.Password)
     </p>
+    <p>
+        @Html.CheckBoxFor(m => m.AutoLogin)
+        @Html.LabelFor(m => m.AutoLogin)
+    </p>
         <input input type="submit" value="Conectar" />
 }
