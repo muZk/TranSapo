@@ -40,6 +40,10 @@ namespace Prueba5
                 "Search", "Busqueda/{query}", new { controller = "Home", action = "Resultado" }
                 );
 
+            RouteTable.Routes.MapRoute(
+               "Confirmacion", "Account/Confirmar/{parametroValidador}", new { controller = "Account", action = "Confirmar" }
+               );
+
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
 

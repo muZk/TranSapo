@@ -9,6 +9,9 @@ using Prueba5.Models;
 using Newtonsoft.Json.Linq;
 using System.Net;
 using TweetSharp;
+using System.ComponentModel.DataAnnotations;
+using System.Net.Mail;
+using System.Data;
 
 namespace Prueba5.Controllers
 {
@@ -16,7 +19,15 @@ namespace Prueba5.Controllers
     {
 
         private static TranSapoContext transapoContext = new TranSapoContext();
+        //Twitter
+        private string _consumerKey = "ov8IthavTr6qQQghL7f9A";
+        private string _consumerSecret = "72GlljtfAb3HWtyxTSiHkhBZ6pPRM41VmpKcB15s";
+        
+        //Mail
+        private MailAddress fromAddress = new MailAddress("transapo.cl@gmail.com", "TranSapo");
+        private const string fromPassword = "proyectoing123";
 
+        
         //Facebook
         [HttpGet]
         public ActionResult FacebookLogin(string token)
@@ -40,9 +51,6 @@ namespace Prueba5.Controllers
         }
 
         //Twitter
-        private string _consumerKey = "ov8IthavTr6qQQghL7f9A";
-        private string _consumerSecret = "72GlljtfAb3HWtyxTSiHkhBZ6pPRM41VmpKcB15s";
-
         public ActionResult Authorize()
         {
             // Step 1 - Retrieve an OAuth Request Token
@@ -120,14 +128,30 @@ namespace Prueba5.Controllers
 
                 if (existeUsername == false & existeEmail == false)
                 {
+                    string a = Request.Url.AbsolutePath;
+                    string b = Request.Url.AbsoluteUri;
+                    string c = Request.Url.DnsSafeHost;
+                    string d = Request.Url.Authority;
+                    string e = Request.Url.Fragment;
+                    string f = Request.Url.Host;
+                    string g = Request.Url.LocalPath;
                     Cuenta cuenta = new Cuenta();
                     cuenta.username = model.Username;
                     cuenta.password = model.Password;
                     cuenta.email = model.Email;
+                    cuenta.parametroValidador = (model.Email + "-" + GetParameter()).ToUpper();
+                    cuenta.validado = false;
                     transapoContext.Cuentas.Add(cuenta);
                     transapoContext.SaveChanges();
                     HomeController.Mensajes.Add("¡Su cuenta ha sido creada satisfactoriamente!");
+                    HomeController.Mensajes.Add("Revisa tu casilla de correo para confirmar tu cuenta");
+                    string body = "Estimado " + model.Username + ", \n\n" +
+                        "Su cuenta ha sido creada satisfactoriamente. Para finalizar, confirme su cuenta pinchando en el siguiente link:\n\n" +
+                        "http://"+Request.Url.Authority+Url.Action("Confirmar")+"/"+cuenta.parametroValidador+" \n\n"+
+                        "¡Gracias por ser parte de esta nueva red!";
+                    SendEmail(model.Email, model.Username, "Mail de Confirmación", body);
                     return RedirectToAction("Index", "Home");
+
                 }
                 if (existeEmail)
                     ModelState.AddModelError("", "Email ya está registrado. Por favor escoger otro");
@@ -135,6 +159,38 @@ namespace Prueba5.Controllers
                     ModelState.AddModelError("", "Nombre de usuario ya existe. Por favor escoger otro.");
             }
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult Confirmar(string parametroValidador)
+        {
+            TranSapoContext db = new TranSapoContext();
+
+            var query = from Cuenta c in db.Cuentas
+                        where c.parametroValidador == parametroValidador
+                        select c;
+            if (query.Count() == 1)
+            {
+                Cuenta c=new Cuenta();
+                foreach (Cuenta cu in query)
+                {
+                    c = cu; break;
+                }
+
+                if (c.validado)
+                {
+                    HomeController.Mensajes.Add("Ya confirmaste tu cuenta con anterioridad");
+                }
+                else
+                {
+                    HomeController.Mensajes.Add("¡Bienvenido a TranSapo " + c.username + "!.\nHas terminado de registrarte con éxito");
+                    c.validado = true;
+                    db.Entry(c).State = EntityState.Modified;
+                    db.SaveChanges();
+                    //Aquí crear directamente la cookie
+                 }
+            }
+            return RedirectToAction("Index", "Home");
         }
 
 
@@ -164,6 +220,48 @@ namespace Prueba5.Controllers
         {
             var query = from cuenta in transapoContext.Cuentas where cuenta.username == username & cuenta.password == password select cuenta;
             return query.Count() > 0;
+        }
+
+        private string GetParameter()
+        {
+            return Guid.NewGuid().ToString();
+        }
+
+        private void SendEmail(string MailTo,string NameTo, string Titulo, string Body)
+        {
+            try
+            {
+                
+                var toAddress = new MailAddress(MailTo, NameTo);
+                
+                 string subject = Titulo;
+                 string body = Body;
+
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+                };
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    Body = body
+                })
+                {
+                    smtp.Send(message);
+                }
+
+                //return RedirectToAction("CompletionMethod");
+            }
+            catch (Exception ex)
+            {
+                ViewData.ModelState.AddModelError("Email Sent Error", ex.ToString());
+            }
+            //return View();
         }
 
         #endregion
