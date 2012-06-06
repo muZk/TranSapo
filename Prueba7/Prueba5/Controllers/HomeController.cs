@@ -143,7 +143,7 @@ namespace Prueba5.Controllers
             //Suponiendo que AL MENOS hay 3 paraderos (Sino no va a funcionar mal D:)
             if (max > UltimaParada)
             {
-                for (int i = min; i < min + 2*delta; i++)
+                for (int i = min; i <= min + 2*delta; i++)
                 {
                     QueryResultado = QueryResultado.Union(InformacionReciente(i % UltimaParada, 5, model, db)).ToList();
                 }
@@ -151,7 +151,7 @@ namespace Prueba5.Controllers
             else if (min < PrimeraParada)
             {
                 int aux = UltimaParada - (PrimeraParada - min);
-                for (int i = aux; i < aux+ 2*delta; i++)
+                for (int i = aux; i <= aux+ 2*delta; i++)
                 {
                     QueryResultado = QueryResultado.Union(InformacionReciente(i % UltimaParada, 5, model, db)).ToList();
                 }
