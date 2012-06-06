@@ -145,7 +145,7 @@ namespace Prueba5.Controllers
             {
                 for (int i = min; i < min + 2*delta; i++)
                 {
-                    QueryResultado.Union(InformacionReciente(i%UltimaParada,5, model,db));
+                    QueryResultado = QueryResultado.Union(InformacionReciente(i % UltimaParada, 5, model, db)).ToList();
                 }
             }
             else if (min < PrimeraParada)
@@ -153,14 +153,14 @@ namespace Prueba5.Controllers
                 int aux = UltimaParada - (PrimeraParada - min);
                 for (int i = aux; i < aux+ 2*delta; i++)
                 {
-                    QueryResultado.Union(InformacionReciente(i % UltimaParada,5, model, db));
+                    QueryResultado = QueryResultado.Union(InformacionReciente(i % UltimaParada, 5, model, db)).ToList();
                 }
             }
             else
             {
-                for (int i = min; i < max; i++)
+                for (int i = min; i <= max; i++)
                 {
-                    QueryResultado.Union(InformacionReciente(i % UltimaParada,5, model, db));
+                    QueryResultado=QueryResultado.Union(InformacionReciente(i % UltimaParada,5, model, db)).ToList();
                 }
             }
 
