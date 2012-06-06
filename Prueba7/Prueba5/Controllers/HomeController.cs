@@ -125,18 +125,76 @@ namespace Prueba5.Controllers
         {
             if(model.RPIngresado==null)
             return null;
-            var informaciones = from Informacion i in db.Informaciones
-                                where i.Recorrido.numero == model.RecorridoIngresado.numero
+            //Aqui definir delta (Cuántos se mostrarán para atrás y para adelantes)
+            int delta = 1;
+            int min = model.RPIngresado.NumeroParada - delta;
+            int max = model.RPIngresado.NumeroParada + delta;
+            int UltimaParada, PrimeraParada;
+
+            var recorridosParaderos = from RecorridosParadero rp in db.recorridosParadero.OrderBy(rp => rp.NumeroParada)
+                                      where rp.Recorrido.numero == model.RecorridoIngresado.numero
+                                      select rp.NumeroParada;
+
+            PrimeraParada = recorridosParaderos.Min();
+            UltimaParada = recorridosParaderos.Max();
+
+
+            List<ResultadoBusqueda> QueryResultado=new List<ResultadoBusqueda>();
+            //Suponiendo que AL MENOS hay 3 paraderos (Sino no va a funcionar mal D:)
+            if (max > UltimaParada)
+            {
+                for (int i = min; i < min + 2*delta; i++)
+                {
+                    QueryResultado.Union(InformacionReciente(i%UltimaParada,5, model,db));
+                }
+            }
+            else if (min < PrimeraParada)
+            {
+                int aux = UltimaParada - (PrimeraParada - min);
+                for (int i = aux; i < aux+ 2*delta; i++)
+                {
+                    QueryResultado.Union(InformacionReciente(i % UltimaParada,5, model, db));
+                }
+            }
+            else
+            {
+                for (int i = min; i < max; i++)
+                {
+                    QueryResultado.Union(InformacionReciente(i % UltimaParada,5, model, db));
+                }
+            }
+
+           // List<ResultadoBusqueda> resultado = new List<ResultadoBusqueda>();
+            //foreach (var q in QueryResultado)
+              //  resultado.Add(new ResultadoBusqueda(q.Recorrido, q.Lejania, q.NombreEstado, q.Fecha));
+            return QueryResultado;
+        }
+
+        /// <summary>
+        /// Entrega la información ingresada (en los últimos 45 minutos) asociada a la posición @posicion asociada al paradero en el recorrido especificado en el modelo @model
+        /// </summary>
+        /// <param name="posicion">Posición de la parada en el Recorrido de interés</param>
+        /// <param name="limite">Cuántas tuplas se devolverán como máximo</param>
+        private List<ResultadoBusqueda> InformacionReciente(int posicion, int limite, IngresarInformacion model, TranSapoContext db)
+        {
+            var informaciones = from Informacion i in db.Informaciones.OrderBy( i => i.fecha)
+                                where i.Recorrido.numero == model.RecorridoIngresado.numero //&& ( i.fecha <= DateTime.Now.Add( new TimeSpan(0,45,0)) && i.fecha.Add(new TimeSpan(0,45,0)) >= DateTime.Now)                               
                                 select i;
             var recorridoparadero = from RecorridosParadero rp in db.recorridosParadero
-                                    where rp.Recorrido.numero == model.RecorridoIngresado.numero & rp.NumeroParada < model.RPIngresado.NumeroParada
+                                    where rp.Recorrido.numero == model.RecorridoIngresado.numero & rp.NumeroParada == posicion
                                     select rp;
-            var query = informaciones.AsQueryable().Join(recorridoparadero, i => i.Paradero, rc => rc.Paradero, (i, rc) => new { Recorrido = i.Recorrido.numero, Fecha = i.fecha, NombreEstado = i.Estado.NombreEstado, Lejania = model.RPIngresado.NumeroParada - rc.NumeroParada }).OrderBy(a => a.Lejania);
-
-            List<ResultadoBusqueda> resultado = new List<ResultadoBusqueda>();
+            var query = informaciones.AsQueryable().Join(recorridoparadero, i => i.Paradero, rc => rc.Paradero, (i, rc) => new { Recorrido = i.Recorrido.numero, Fecha = i.fecha, NombreEstado = i.Estado.NombreEstado, Lejania = model.RPIngresado.NumeroParada - rc.NumeroParada });
+            
+            int count=0;
+            List<ResultadoBusqueda> ListaResultados= new List<ResultadoBusqueda>();
             foreach (var q in query)
-                resultado.Add(new ResultadoBusqueda(q.Recorrido, q.Lejania, q.NombreEstado, q.Fecha));
-            return resultado;
+            {
+                if(count>=limite)
+                    break;
+                ListaResultados.Add(new ResultadoBusqueda(q.Recorrido, q.Lejania, q.NombreEstado, q.Fecha));
+                count++;
+            }
+            return ListaResultados;
         }
 
         /// <summary>
