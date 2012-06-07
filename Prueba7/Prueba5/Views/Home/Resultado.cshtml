@@ -14,7 +14,7 @@
                 Recorrido
             </th>
             <th>
-                Lejanía (en # de paraderos)
+                Lo que está pasando...
             </th>
             <th>
                 Estado
@@ -27,7 +27,26 @@
         {
             <tr>
                 <td>@q.Recorrido</td>
-                <td>@q.Lejania</td>
+                @if (q.Lejania == -1)
+                    {
+                        <td>Un Paradero Adelante</td>
+                    }
+                    else if (q.Lejania < -1)
+                    {
+                        <td>@(-q.Lejania) Paraderos Adelante</td>
+                    }
+                else if (q.Lejania == 0)
+                {
+                    <td>En tu Paradero</td>
+                }
+                else if (q.Lejania == 1)
+                {
+                    <td>Un Paradero Antes</td>
+                }
+                else
+                {
+                    <td>@q.Lejania Paraderos Antes</td>
+                }
                 <td>@q.NombreEstado</td>
                 <td>@q.Fecha</td>
             </tr>

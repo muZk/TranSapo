@@ -121,12 +121,12 @@ namespace Prueba5.Controllers
         /// <summary>
         /// Entrega los Resultados de Búsqueda asociados al modelo
         /// </summary>
-        private List<ResultadoBusqueda> ResultadoBusqueda(IngresarInformacion model,TranSapoContext db)
+        private List<ResultadoBusqueda> ResultadoBusqueda(IngresarInformacion model, TranSapoContext db)
         {
-            if(model.RPIngresado==null)
-            return null;
+            if (model.RPIngresado == null)
+                return null;
             //Aqui definir delta (Cuántos se mostrarán para atrás y para adelantes)
-            int delta = 1;
+            int delta = 2;
             int min = model.RPIngresado.NumeroParada - delta;
             int max = model.RPIngresado.NumeroParada + delta;
             int UltimaParada, PrimeraParada;
@@ -139,34 +139,34 @@ namespace Prueba5.Controllers
             UltimaParada = recorridosParaderos.Max();
 
 
-            List<ResultadoBusqueda> QueryResultado=new List<ResultadoBusqueda>();
+            List<ResultadoBusqueda> QueryResultado = new List<ResultadoBusqueda>();
             //Suponiendo que AL MENOS hay 3 paraderos (Sino no va a funcionar mal D:)
             if (max > UltimaParada)
             {
-                for (int i = min; i <= min + 2*delta; i++)
+                for (int i = min; i <= min + 2 * delta; i++)
                 {
-                    QueryResultado = QueryResultado.Union(InformacionReciente(i % UltimaParada, 5, model, db)).ToList();
+                    QueryResultado = QueryResultado.Union(InformacionReciente(i % (UltimaParada + 1), 5, model, db, UltimaParada)).ToList();
                 }
             }
-            else if (min < PrimeraParada)
+            else if (min < 0)
             {
-                int aux = UltimaParada - (PrimeraParada - min);
-                for (int i = aux; i <= aux+ 2*delta; i++)
+                int aux = UltimaParada + min + 1;
+                for (int i = aux; i <= aux + 2 * delta; i++)
                 {
-                    QueryResultado = QueryResultado.Union(InformacionReciente(i % UltimaParada, 5, model, db)).ToList();
+                    QueryResultado = QueryResultado.Union(InformacionReciente(i % (UltimaParada + 1), 5, model, db, UltimaParada)).ToList();
                 }
             }
             else
             {
                 for (int i = min; i <= max; i++)
                 {
-                    QueryResultado=QueryResultado.Union(InformacionReciente(i % UltimaParada,5, model, db)).ToList();
+                    QueryResultado = QueryResultado.Union(InformacionReciente(i % (UltimaParada + 1), 5, model, db, UltimaParada)).ToList();
                 }
             }
 
-           // List<ResultadoBusqueda> resultado = new List<ResultadoBusqueda>();
+            // List<ResultadoBusqueda> resultado = new List<ResultadoBusqueda>();
             //foreach (var q in QueryResultado)
-              //  resultado.Add(new ResultadoBusqueda(q.Recorrido, q.Lejania, q.NombreEstado, q.Fecha));
+            //  resultado.Add(new ResultadoBusqueda(q.Recorrido, q.Lejania, q.NombreEstado, q.Fecha));
             return QueryResultado;
         }
 
@@ -175,27 +175,58 @@ namespace Prueba5.Controllers
         /// </summary>
         /// <param name="posicion">Posición de la parada en el Recorrido de interés</param>
         /// <param name="limite">Cuántas tuplas se devolverán como máximo</param>
-        private List<ResultadoBusqueda> InformacionReciente(int posicion, int limite, IngresarInformacion model, TranSapoContext db)
+        private List<ResultadoBusqueda> InformacionReciente(int posicion, int limite, IngresarInformacion model, TranSapoContext db, int max)
         {
-            var informaciones = from Informacion i in db.Informaciones.OrderBy( i => i.fecha)
+            var informaciones = from Informacion i in db.Informaciones.OrderBy(i => i.fecha)
                                 where i.Recorrido.numero == model.RecorridoIngresado.numero //&& ( i.fecha <= DateTime.Now.Add( new TimeSpan(0,45,0)) && i.fecha.Add(new TimeSpan(0,45,0)) >= DateTime.Now)                               
                                 select i;
             var recorridoparadero = from RecorridosParadero rp in db.recorridosParadero
                                     where rp.Recorrido.numero == model.RecorridoIngresado.numero & rp.NumeroParada == posicion
                                     select rp;
-            var query = informaciones.AsQueryable().Join(recorridoparadero, i => i.Paradero, rc => rc.Paradero, (i, rc) => new { Recorrido = i.Recorrido.numero, Fecha = i.fecha, NombreEstado = i.Estado.NombreEstado, Lejania = model.RPIngresado.NumeroParada - rc.NumeroParada });
-            
-            int count=0;
-            List<ResultadoBusqueda> ListaResultados= new List<ResultadoBusqueda>();
+            int _lejania = Lejania(posicion, model.RPIngresado.NumeroParada, max);
+            var query = informaciones.AsQueryable().Join(recorridoparadero, i => i.Paradero, rc => rc.Paradero, (i, rc) => new { Recorrido = i.Recorrido.numero, Fecha = i.fecha, NombreEstado = i.Estado.NombreEstado, Lejania = _lejania });
+
+            int count = 0;
+            List<ResultadoBusqueda> ListaResultados = new List<ResultadoBusqueda>();
             foreach (var q in query)
             {
-                if(count>=limite)
+                if (count >= limite)
                     break;
                 ListaResultados.Add(new ResultadoBusqueda(q.Recorrido, q.Lejania, q.NombreEstado, q.Fecha));
                 count++;
             }
             return ListaResultados;
         }
+
+        private int Lejania(int posicionParadaActual, int posicionParadaInteres, int valorMaximoParada)
+        {
+            int a = posicionParadaInteres - posicionParadaActual;
+            int b = valorMaximoParada + 1 - Math.Abs(a);
+            if (a < 0)
+            {
+                b = Math.Abs(b);
+            }
+            if (a > 0)
+            {
+                b = -Math.Abs(b);
+            }
+
+            /*if (a == 0)
+            {
+                return 0;
+            }*/
+            if (Math.Abs(a) < Math.Abs(b))
+            {
+                return a;
+            }
+            else if (Math.Abs(a) > Math.Abs(b))
+            {
+                return b;
+            }
+            else
+                return 0;
+        }
+
 
         /// <summary>
         /// Entrega una lista con los valores de input.Split(' ') en mayúsculas
