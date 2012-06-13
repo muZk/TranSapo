@@ -55,7 +55,7 @@
 }
 else if (Model.Paraderos != null)
 {
-    @Html.ValidationSummary(true, "Hubo errores en la búsqueda")
+    <div class="mensaje">No se especificó un paradero.</div>
     <p>Lista ordenada de los paraderos por los que transita el recorrido  <b>@Model.RecorridoIngresado.numero</b></p>
     <fieldset>
     <table>
@@ -69,7 +69,7 @@ else if (Model.Paraderos != null)
 }
 else if (Model.Recorridos != null)
 {
-    @Html.ValidationSummary(true, "Hubo errores en la búsqueda")
+    <div class="mensaje">No se especificó un recorrido.</div>
     <p>Recorridos que pasan por <b>@Model.ParaderoIngresado.codigo</b></p>
     foreach (var m in Model.Recorridos)
     { 

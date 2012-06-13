@@ -189,7 +189,10 @@ namespace Prueba5.Controllers
         {
             TranSapoContext tsc = new TranSapoContext();
             var query = from cuenta in tsc.Cuentas where cuenta.username == username select cuenta;
-            return query.First<Cuenta>();
+            if(query.Count()>0)
+                return query.First<Cuenta>();
+            else
+                return null;
         }
 
         private bool ExisteUsername(string username)
