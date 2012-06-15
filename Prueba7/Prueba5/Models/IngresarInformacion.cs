@@ -31,13 +31,31 @@ namespace Prueba5.Models
         public string Recorrido { get; set; }
         public int Lejania { get; set; }
         public string NombreEstado { get; set; }
-        public DateTime Fecha { get; set; }
+        public string Fecha { get; set; }
         public ResultadoBusqueda(string recorrido, int lejania, string nombreestado, DateTime fecha)
         {
             Recorrido = recorrido;
             Lejania = lejania;
             NombreEstado = nombreestado;
-            Fecha = fecha;
+            TimeSpan temp = DateTime.Now.Subtract(fecha);
+            int dias = (int)temp.Days;
+            int horas = (int)temp.Hours;
+            int minutos = (int)temp.Minutes;
+            int segundos = (int)temp.Seconds;
+            if (dias > 0)
+            {
+                if (dias == 1)
+                    Fecha = string.Format("ayer", dias);
+                else
+                    Fecha = fecha.ToShortDateString();
+            }
+            else if (horas > 0)
+                Fecha = string.Format("{0} horas", horas);
+            else if (minutos > 0)
+                Fecha = string.Format("{0} minutos", minutos);
+            else
+                Fecha = string.Format("{0} segundos", segundos);
+                
         }
     }
 

@@ -185,20 +185,20 @@ ul#menu li a {
     font-weight: bold;
     text-decoration: none;
     line-height: 2.8em;
-    background-color: #e8eef4;
-    color: #034af3;
+    background-color: #fff;
+    color: #125C12;
     border-radius: 4px 4px 0 0;
     -webkit-border-radius: 4px 4px 0 0;
     -moz-border-radius: 4px 4px 0 0;
 }
 
 ul#menu li a:hover {
-    background-color: #fff;
+    background-color: #BBFFBB;
     text-decoration: none;
 }
 
 ul#menu li a:active {
-    background-color: #a6e2a6;
+    background-color: #BBFFBB;
     text-decoration: none;
 }
 
