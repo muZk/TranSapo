@@ -48,6 +48,9 @@ namespace Prueba5
             RegisterRoutes(RouteTable.Routes);
 
            System.Data.Entity.Database.SetInitializer(new System.Data.Entity.DropCreateDatabaseIfModelChanges<TranSapoContext>());
+
+           //Backup.XMLBackup.Backup();
+           //Backup.XMLBackup.Load();
         }
     }
 }

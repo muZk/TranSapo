@@ -43,12 +43,7 @@ namespace Prueba5.Models
             int minutos = (int)temp.Minutes;
             int segundos = (int)temp.Seconds;
             if (dias > 0)
-            {
-                if (dias == 1)
-                    Fecha = string.Format("ayer", dias);
-                else
-                    Fecha = fecha.ToShortDateString();
-            }
+                Fecha = string.Format("{0} días", dias);
             else if (horas > 0)
                 Fecha = string.Format("{0} horas", horas);
             else if (minutos > 0)
