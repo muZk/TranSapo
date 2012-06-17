@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Prueba5.Models;
 
 namespace Prueba5.Controllers
 {
@@ -10,6 +11,8 @@ namespace Prueba5.Controllers
     {
         //
         // GET: /Testing/
+
+
 
         public ActionResult Index()
         {

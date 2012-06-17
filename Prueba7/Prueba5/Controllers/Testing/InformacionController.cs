@@ -18,7 +18,7 @@ namespace Prueba5.Controllers
 
         public ViewResult Index()
         {
-            var informaciones = db.Informaciones.Include(i => i.Estado).Include(i => i.Paradero).Include(i => i.Recorrido);
+            var informaciones = db.Informaciones.Include(i => i.Estado).Include(i => i.Paradero).Include(i => i.Recorrido).Include(i => i.Cuenta);
             return View(informaciones.ToList());
         }
 
@@ -39,6 +39,7 @@ namespace Prueba5.Controllers
             ViewBag.EstadoID = new SelectList(db.Estados, "ID", "NombreEstado");
             ViewBag.ParaderoID = new SelectList(db.Paradero, "ID", "codigo");
             ViewBag.RecorridoID = new SelectList(db.recorrido, "ID", "numero");
+            ViewBag.CuentaID = new SelectList(db.Cuentas, "ID", "username");
             return View();
         } 
 
@@ -58,6 +59,7 @@ namespace Prueba5.Controllers
             ViewBag.EstadoID = new SelectList(db.Estados, "ID", "NombreEstado", informacion.EstadoID);
             ViewBag.ParaderoID = new SelectList(db.Paradero, "ID", "codigo", informacion.ParaderoID);
             ViewBag.RecorridoID = new SelectList(db.recorrido, "ID", "numero", informacion.RecorridoID);
+            ViewBag.CuentaID = new SelectList(db.Cuentas, "ID", "username",informacion.CuentaID);
             return View(informacion);
         }
         
@@ -70,6 +72,7 @@ namespace Prueba5.Controllers
             ViewBag.EstadoID = new SelectList(db.Estados, "ID", "NombreEstado", informacion.EstadoID);
             ViewBag.ParaderoID = new SelectList(db.Paradero, "ID", "codigo", informacion.ParaderoID);
             ViewBag.RecorridoID = new SelectList(db.recorrido, "ID", "numero", informacion.RecorridoID);
+            ViewBag.CuentaID = new SelectList(db.Cuentas, "ID", "username", informacion.CuentaID);
             return View(informacion);
         }
 
@@ -88,6 +91,7 @@ namespace Prueba5.Controllers
             ViewBag.EstadoID = new SelectList(db.Estados, "ID", "NombreEstado", informacion.EstadoID);
             ViewBag.ParaderoID = new SelectList(db.Paradero, "ID", "codigo", informacion.ParaderoID);
             ViewBag.RecorridoID = new SelectList(db.recorrido, "ID", "numero", informacion.RecorridoID);
+            ViewBag.CuentaID = new SelectList(db.Cuentas, "ID", "username", informacion.CuentaID);
             return View(informacion);
         }
 

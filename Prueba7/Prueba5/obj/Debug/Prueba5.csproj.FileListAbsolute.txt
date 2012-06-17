@@ -83,3 +83,4 @@ C:\Users\muZk\Github\TranSapo\Prueba7\Prueba5\bin\TweetSharp.pdb
 C:\Users\muZk\Github\TranSapo\Prueba7\Prueba5\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\muZk\Github\TranSapo\Prueba7\Prueba5\obj\Debug\Prueba5.dll
 C:\Users\muZk\Github\TranSapo\Prueba7\Prueba5\obj\Debug\Prueba5.pdb
+C:\Users\muZk\Github\TranSapo\Prueba7\Prueba5\obj\Debug\Prueba5.g.resources

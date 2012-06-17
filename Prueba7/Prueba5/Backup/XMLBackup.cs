@@ -21,6 +21,7 @@ namespace Prueba5.Backup
 
                 db.recorrido.Add(r);
                 db.SaveChanges();
+                db.Detach(r);
             }
         }
 
@@ -35,6 +36,7 @@ namespace Prueba5.Backup
 
                 db.Paradero.Add(p);
                 db.SaveChanges();
+                db.Detach(p);
             }
         }
 
@@ -57,6 +59,7 @@ namespace Prueba5.Backup
 
                 db.recorridosParadero.Add(rcs);
                 db.SaveChanges();
+                db.Detach(rcs);
             }
         }
 
@@ -71,6 +74,7 @@ namespace Prueba5.Backup
 
                 db.Estados.Add(e);
                 db.SaveChanges();
+                db.Detach(e);
             }
         }
 
@@ -89,6 +93,7 @@ namespace Prueba5.Backup
 
                 db.Cuentas.Add(cuenta);
                 db.SaveChanges();
+                db.Detach(cuenta);
             }
         }
 
@@ -112,6 +117,7 @@ namespace Prueba5.Backup
 
                 db.Informaciones.Add(i);
                 db.SaveChanges();
+                db.Detach(i);
             }
         }
 

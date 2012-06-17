@@ -28,6 +28,12 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.Recorrido.numero)
     </div>
+
+      <div class="display-label">Cuenta</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Cuenta.username)
+    </div>
+
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 
 namespace Prueba5.Models
 {
@@ -21,10 +22,15 @@ namespace Prueba5.Models
             public DbSet<RecorridosParadero> recorridosParadero { get; set; }
 
             public DbSet<Informacion> Informaciones { get; set; }
-            //public DbSet<Comentario> comentario { get; set; }
-            //public DbSet<ComentarioInformacion> comentarioInformacion { get; set; }
+            public DbSet<Comentario> comentario { get; set; }
+            public DbSet<ComentarioInformacion> comentarioInformacion { get; set; }
             //public DbSet<CallesParadero> callesParadero { get; set; }
             public DbSet<Cuenta> Cuentas { get; set; }
+
+            public void Detach(object entity)
+            {
+                ((IObjectContextAdapter)this).ObjectContext.Detach(entity);
+            }
             
         }
     

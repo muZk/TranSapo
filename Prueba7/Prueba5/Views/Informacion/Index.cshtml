@@ -23,6 +23,9 @@
         <th>
             Recorrido
         </th>
+        <th>
+            Cuenta
+        </th>
         <th></th>
     </tr>
 
@@ -39,6 +42,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Recorrido.numero)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cuenta.username)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |

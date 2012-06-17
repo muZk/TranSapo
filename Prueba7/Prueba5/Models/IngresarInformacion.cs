@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace Prueba5.Models
 {
@@ -24,6 +25,8 @@ namespace Prueba5.Models
         public Paradero ParaderoIngresado { get; set; }
         public Recorrido RecorridoIngresado { get; set; }
         public List<ResultadoBusqueda> ResultadoBusqueda { get; set; }
+        public Cuenta Cuenta { get; set; }
+
     }
 
     public class ResultadoBusqueda
@@ -31,27 +34,84 @@ namespace Prueba5.Models
         public string Recorrido { get; set; }
         public int Lejania { get; set; }
         public string NombreEstado { get; set; }
-        public string Fecha { get; set; }
-        public ResultadoBusqueda(string recorrido, int lejania, string nombreestado, DateTime fecha)
+        public DateTime Fecha { get; set; }
+        public string Username { get; set; }
+        public int Informacion_ID { get; set; }
+        public int Cuenta_ID { get; set; }
+
+        [MaxLength(400,ErrorMessage="Mensaje debe contener menos de 400 carácteres")]
+        [MinLength(3,ErrorMessage="Mensaje debe contener al menos 3 carácteres")]
+        [Remote("ValidadorComentario","Comment", HttpMethod = "POST", ErrorMessage = "Por favor, siga el fomato.")]
+        public string comentario { get; set; }
+
+        public string Time()
         {
-            Recorrido = recorrido;
-            Lejania = lejania;
-            NombreEstado = nombreestado;
-            TimeSpan temp = DateTime.Now.Subtract(fecha);
+            TimeSpan temp = DateTime.Now.Subtract(Fecha);
             int dias = (int)temp.Days;
             int horas = (int)temp.Hours;
             int minutos = (int)temp.Minutes;
             int segundos = (int)temp.Seconds;
+            string result = "";
             if (dias > 0)
-                Fecha = string.Format("{0} días", dias);
+                result = string.Format("{0} días", dias);
             else if (horas > 0)
-                Fecha = string.Format("{0} horas", horas);
+                result = string.Format("{0} horas", horas);
             else if (minutos > 0)
-                Fecha = string.Format("{0} minutos", minutos);
+                result = string.Format("{0} minutos", minutos);
             else
-                Fecha = string.Format("{0} segundos", segundos);
-                
+                result = string.Format("{0} segundos", segundos);
+            return result;
         }
+
+        public string ObtenerLejania()
+        {
+            if (this.Lejania == -1)
+            {
+                return "Un Paradero Adelante";
+            }
+            else if (this.Lejania < -1)
+            {
+                return string.Format("{0} Paraderos Adelante", (-this.Lejania));
+            }
+            else if (this.Lejania == 0)
+            {
+                return "En tu Paradero";
+            }
+            else if (this.Lejania == 1)
+            {
+                return "Un Paradero Antes";
+            }
+            else
+            {
+                return string.Format("{0} Paraderos Antes", (this.Lejania));
+            }
+        }
+
+        public ResultadoBusqueda(string recorrido, int lejania, string nombreestado, DateTime fecha,string username,int Cuenta_ID,int info_id)
+        {
+            Recorrido = recorrido;
+            Lejania = lejania;
+            NombreEstado = nombreestado;
+            Username = username;
+            Informacion_ID = info_id;
+            Fecha = fecha;
+            this.Cuenta_ID = Cuenta_ID;
+        }
+
+        public ResultadoBusqueda()
+        {
+        }
+
+        #region Busquedas Avanzadas
+        public IQueryable<ComentarioInformacion> ObtenerComentarioInformacion()
+        {
+            TranSapoContext db = new TranSapoContext();
+            // Comentarios puros de la informacion
+            var query = from ComentarioInformacion c in db.comentarioInformacion where c.InformacionID == this.Informacion_ID select c;
+            return query;
+        }
+        #endregion
+
     }
 
 }

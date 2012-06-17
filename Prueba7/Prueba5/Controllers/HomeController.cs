@@ -9,9 +9,7 @@ namespace Prueba5.Controllers
 {
     public class HomeController : Controller
     {
-
         public static List<string> Mensajes = new List<string>();
-
 
         // GET: /Home/Index
         public ActionResult Index()
@@ -34,15 +32,6 @@ namespace Prueba5.Controllers
             return View(model);
         }
 
-        // GET: /Home/Index1
-        /// <summary>
-        /// Retorna la vista post- Ingreso de información exitosa (Con Mensaje "Gracias...")
-        /// </summary>
-        public ActionResult Index1()
-        {
-            return View();
-        }
-
         /// <summary>
         /// Entrega la vista cuando una consulta se hace de la forma /Busqueda/{query}
         /// </summary>
@@ -53,6 +42,7 @@ namespace Prueba5.Controllers
         {
             IngresarInformacion model=new IngresarInformacion();
             model.ParaderoRecorrido=query;
+            model.Cuenta = Cuentas.Get(User.Identity.Name,new TranSapoContext());
             return Resultado(model);
         }
 
@@ -184,7 +174,7 @@ namespace Prueba5.Controllers
                                     where rp.Recorrido.numero == model.RecorridoIngresado.numero & rp.NumeroParada == posicion
                                     select rp;
             int _lejania = Lejania(posicion, model.RPIngresado.NumeroParada, max);
-            var query = informaciones.AsQueryable().Join(recorridoparadero, i => i.Paradero, rc => rc.Paradero, (i, rc) => new { Recorrido = i.Recorrido.numero, Fecha = i.fecha, NombreEstado = i.Estado.NombreEstado, Lejania = _lejania });
+            var query = informaciones.AsQueryable().Join(recorridoparadero, i => i.Paradero, rc => rc.Paradero, (i, rc) => new { Recorrido = i.Recorrido.numero, Fecha = i.fecha, NombreEstado = i.Estado.NombreEstado, Lejania = _lejania, Username = i.Cuenta.username,Cuenta_ID = i.CuentaID, info = i.ID});
 
             int count = 0;
             List<ResultadoBusqueda> ListaResultados = new List<ResultadoBusqueda>();
@@ -192,7 +182,7 @@ namespace Prueba5.Controllers
             {
                 if (count >= limite)
                     break;
-                ListaResultados.Add(new ResultadoBusqueda(q.Recorrido, q.Lejania, q.NombreEstado, q.Fecha));
+                ListaResultados.Add(new ResultadoBusqueda(q.Recorrido, q.Lejania, q.NombreEstado, q.Fecha, q.Username,q.Cuenta_ID,q.info));
                 count++;
             }
             return ListaResultados;
@@ -359,13 +349,15 @@ namespace Prueba5.Controllers
         {
             if (ModelState.IsValid)
             {
+                TranSapoContext db = new TranSapoContext();
+                model.Cuenta = Cuentas.Get(User.Identity.Name,db);
+
                 List<string> ListaParametros = StringToUpperList(model.ParaderoRecorrido);
 
                 bool RecorridoParaderoExiste = false;
                 bool RecorridoExiste = false;
                 bool ParaderoExiste = false;
                 int id_p = -1, id_r = -1;
-                TranSapoContext db = new TranSapoContext();
 
                 var p_existe = ObtenerParaderos(ListaParametros, db);
                 foreach (Paradero p in p_existe)
@@ -393,6 +385,7 @@ namespace Prueba5.Controllers
                     tsInfo.RecorridoID = id_r;
                     tsInfo.EstadoID = estado;
                     tsInfo.fecha = DateTime.Now;
+                    tsInfo.CuentaID = model.Cuenta.ID;
 
                     db.Informaciones.Add(tsInfo);
                     db.SaveChanges();

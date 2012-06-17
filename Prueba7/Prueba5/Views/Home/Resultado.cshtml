@@ -4,11 +4,16 @@
     ViewBag.Title = "Results";
 }
 
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+
 <h2>Resultados</h2>
 @if (Model.ResultadoBusqueda != null)
 {
     <p>Información de búsqueda para:<br /> Paradero:<b>@Model.ParaderoIngresado.codigo </b><br /> Recorrido:<b>@Model.RecorridoIngresado.numero </b></p>
-    <table>
+    <table class="table">
+    <thead>
         <tr>
             <th>
                 Recorrido
@@ -22,35 +27,31 @@
             <th>
                 Hace aproximadamente...
             </th>
+            <th>
+                Publicado por
+            </th>
+            <th></th>
         </tr>
+    </thead>
+    <tbody>
         @foreach (var q in Model.ResultadoBusqueda)
         {
             <tr>
-                <td>@q.Recorrido</td>
-                @if (q.Lejania == -1)
-                    {
-                        <td>Un Paradero Adelante</td>
-                    }
-                    else if (q.Lejania < -1)
-                    {
-                        <td>@(-q.Lejania) Paraderos Adelante</td>
-                    }
-                else if (q.Lejania == 0)
-                {
-                    <td>En tu Paradero</td>
-                }
-                else if (q.Lejania == 1)
-                {
-                    <td>Un Paradero Antes</td>
-                }
-                else
-                {
-                    <td>@q.Lejania Paraderos Antes</td>
-                }
+                <td><strong>@q.Recorrido</strong></td>
+                <td>@q.ObtenerLejania()</td>
                 <td>@q.NombreEstado</td>
-                <td>@q.Fecha</td>
+                <td>@q.Time()</td>
+                <td>@q.Username</td>
+                <td>
+                    @using (Html.BeginForm())
+                    {
+                        @Html.ActionLink("Comentar", "view", "Comment",
+                             new { Recorrido = q.Recorrido, Lejania = q.Lejania, NombreEstado = q.NombreEstado, Fecha = q.Fecha, Username = q.Username, Cuenta_ID = q.Cuenta_ID, Informacion_ID = q.Informacion_ID }, null);
+                    }
+                </td>
             </tr>
         }
+    </tbody>
     </table>
 }
 else if (Model.Paraderos != null)

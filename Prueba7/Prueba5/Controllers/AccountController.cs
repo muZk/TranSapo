@@ -18,7 +18,6 @@ namespace Prueba5.Controllers
     public class AccountController : Controller
     {
 
-        private static TranSapoContext transapoContext = new TranSapoContext();
         //Twitter
         private string _consumerKey = "ov8IthavTr6qQQghL7f9A";
         private string _consumerSecret = "72GlljtfAb3HWtyxTSiHkhBZ6pPRM41VmpKcB15s";
@@ -74,7 +73,7 @@ namespace Prueba5.Controllers
         {
             if (ModelState.IsValid)
             {
-                Cuenta cuenta = GetCuenta(model.Username);
+                Cuenta cuenta = Cuentas.Get(model.Username,new TranSapoContext());
 
                 if ((cuenta == null) || (cuenta.password != model.Password))
                 {
@@ -107,8 +106,9 @@ namespace Prueba5.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool existeUsername = ExisteUsername(model.Username);
-                bool existeEmail = ExisteEmail(model.Email);
+                TranSapoContext db = new TranSapoContext();
+                bool existeUsername = Cuentas.Get(model.Username, db) != null;
+                bool existeEmail = Cuentas.GetByEmail(model.Email, db) != null;
 
                 if (existeUsername == false & existeEmail == false)
                 {
@@ -119,8 +119,8 @@ namespace Prueba5.Controllers
                     cuenta.email = model.Email;
                     cuenta.parametroValidador = (model.Email + "-" + GetParameter()).ToUpper();
                     cuenta.validado = false;
-                    transapoContext.Cuentas.Add(cuenta);
-                    transapoContext.SaveChanges();
+                    db.Cuentas.Add(cuenta);
+                    db.SaveChanges();
                     HomeController.Mensajes.Add("¡Su cuenta ha sido creada satisfactoriamente!");
                     HomeController.Mensajes.Add("Revisa tu casilla de correo para confirmar tu cuenta");
                     string body = "Estimado " + model.Username + ", \n\n" +
@@ -165,9 +165,8 @@ namespace Prueba5.Controllers
                     c.validado = true;
                     db.Entry(c).State = EntityState.Modified;
                     db.SaveChanges();
-
+                    db.Detach(c);
                     FormsAuthentication.SetAuthCookie(c.username, false);
-                    
                  }
             }
             return RedirectToAction("Index", "Home");
@@ -184,34 +183,6 @@ namespace Prueba5.Controllers
         }
 
         #region Metodos privados .. ¿Existe Username?  ¿Existe Email? ¿Usuario y contraseña correctos?
-
-        private Cuenta GetCuenta(string username)
-        {
-            TranSapoContext tsc = new TranSapoContext();
-            var query = from cuenta in tsc.Cuentas where cuenta.username == username select cuenta;
-            if(query.Count()>0)
-                return query.First<Cuenta>();
-            else
-                return null;
-        }
-
-        private bool ExisteUsername(string username)
-        {
-            var query = from cuenta in transapoContext.Cuentas where cuenta.username == username select cuenta;
-            return query.Count() > 0;
-        }
-
-        private bool ExisteEmail(string email)
-        {
-            var query = from cuenta in transapoContext.Cuentas where cuenta.email == email select cuenta;
-            return query.Count() > 0;
-        }
-
-        private bool UsernamePassword(string username, string password)
-        {
-            var query = from cuenta in transapoContext.Cuentas where cuenta.username == username & cuenta.password == password select cuenta;
-            return query.Count() > 0;
-        }
 
         private string GetParameter()
         {

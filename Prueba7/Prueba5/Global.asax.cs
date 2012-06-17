@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Prueba5.Models;
+using System.Data.Entity;
 
 namespace Prueba5
 {
@@ -22,6 +23,15 @@ namespace Prueba5
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            // Sample URL: /Search
+            routes.MapRoute(
+                "Search", "Busqueda/{query}", new { controller = "Home", action = "Resultado" }
+                );
+
+            routes.MapRoute(
+               "Confirmacion", "Account/Confirmar/{parametroValidador}", new { controller = "Account", action = "Confirmar" }
+               );
+
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
@@ -32,25 +42,15 @@ namespace Prueba5
 
         protected void Application_Start()
         {
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<TranSapoContext>());
+            Backup.XMLBackup.Load();
+            //Backup.XMLBackup.Backup();
+            
             AreaRegistration.RegisterAllAreas();
-
-
-            // Sample URL: /Search
-            RouteTable.Routes.MapRoute(
-                "Search", "Busqueda/{query}", new { controller = "Home", action = "Resultado" }
-                );
-
-            RouteTable.Routes.MapRoute(
-               "Confirmacion", "Account/Confirmar/{parametroValidador}", new { controller = "Account", action = "Confirmar" }
-               );
-
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
-
-           System.Data.Entity.Database.SetInitializer(new System.Data.Entity.DropCreateDatabaseIfModelChanges<TranSapoContext>());
-
-           //Backup.XMLBackup.Backup();
-           //Backup.XMLBackup.Load();
         }
+
+
     }
 }

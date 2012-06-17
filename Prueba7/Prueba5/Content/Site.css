@@ -13,12 +13,12 @@ body {
 }
 
 a:link {
-    color: #034af3;
+    color: #125C12;
     text-decoration: underline;
 }
 
 a:visited {
-    color: #505abc;
+    color: #114B11;
 }
 
 a:hover {
@@ -46,7 +46,7 @@ section {
 ----------------------------------------------------------*/
 h1, h2, h3, h4, h5, h6 {
     font-size: 1.5em;
-    color: #000;
+    color: #125C12;
 }
 
 h1 {
@@ -157,6 +157,11 @@ footer,
     width:700px;
 }
 
+.clear
+{
+    clear:both;
+}
+
 /* TAB MENU   
 ----------------------------------------------------------*/
 ul#menu {
@@ -250,26 +255,64 @@ input[type="submit"] {
 ----------------------------------------------------------*/
 
 table {
-    border: solid 1px #e8eef4;
-    border-collapse: collapse;
+  max-width: 100%;
+  background-color: transparent;
+  border-collapse: collapse;
+  border-spacing: 0;
+   table-layout:fixed;
+  word-wrap:break-word;
+  
 }
 
-table td {
-    padding: 5px;
-    border: solid 1px #e8eef4;
+.table {
+  width: 100%;
+  margin-bottom: 18px;
 }
 
-table th {
-    padding: 6px 5px;
-    text-align: left;
-    background-color: #e8eef4;
-    border: solid 1px #e8eef4;
+.table th,
+.table td {
+  padding: 8px;
+  line-height: 18px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid #dddddd;
+}
+
+.table th {
+  font-weight: bold;
+  width:auto;
+}
+
+td.autor, td.fecha
+{
+    width: 20%;
+}
+
+td
+{
+    color:#125C12;
+}
+
+td.recorrido
+{
+    color:#222;
+}
+
+.table thead th {
+  vertical-align: bottom;
+  color:#000;
+}
+
+.table tbody tr:hover td,
+.table tbody tr:hover th {
+  background-color: #BBFFBB;
 }
 
 /* MISC  
 ----------------------------------------------------------*/
 .clear {
     clear: both;
+    width: 100%;
 }
 
 .error {
@@ -379,4 +422,10 @@ ul#logindisplay li
 {
     color:Green;
     font-size: 2em;
+}
+
+/*Comentarios*/
+p.comentario
+{
+    text-align:center;
 }

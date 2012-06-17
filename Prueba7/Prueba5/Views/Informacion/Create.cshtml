@@ -46,6 +46,14 @@
             @Html.ValidationMessageFor(model => model.RecorridoID)
         </div>
 
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CuentaID, "Cuenta")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("CuentaID", String.Empty)
+            @Html.ValidationMessageFor(model => model.CuentaID)
+        </div>
+
         <p>
             <input type="submit" value="Create" />
         </p>

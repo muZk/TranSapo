@@ -50,6 +50,28 @@ namespace Prueba5.Models
     }
 
 
+    public static class Cuentas
+    {
+        public static Cuenta Get(string username,TranSapoContext db)
+        {
+            var cuentas = from Cuenta c in db.Cuentas where c.username == username select c;
+            if(cuentas.Count()==0)
+                return null;
+            return cuentas.First<Cuenta>();
+        }
+        public static Cuenta GetByEmail(string email, TranSapoContext db)
+        {
+            var cuentas = from Cuenta c in db.Cuentas where c.email == email select c;
+            if (cuentas.Count() == 0)
+                return null;
+            return cuentas.First<Cuenta>();
+        }
+        public static bool MatchUsernamePassword(string username, string password, TranSapoContext db)
+        {
+            var cuentas = from Cuenta c in db.Cuentas where c.username == username && c.password == password select c;
+            return cuentas.Count()>0;
+        }
 
+    }
 
 }
