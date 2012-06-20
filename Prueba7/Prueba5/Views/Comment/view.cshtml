@@ -23,7 +23,6 @@
                 <th>
                     Publicado por
                 </th>
-                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -36,42 +35,63 @@
             </tr>
         </tbody>
     </table>
-<!--Mostramos ahora los comentarios-->
-@if (Model.ObtenerComentarioInformacion().Count() > 0)
-{
-    <p>Comentarios (@Model.ObtenerComentarioInformacion().Count())</p>
-    <table class="table">
-    <tbody>
-    @foreach(Prueba5.Models.ComentarioInformacion c in Model.ObtenerComentarioInformacion())
-    {
-        <tr>
-            <td class="autor"><strong>@c.Comentario.Cuenta.username</strong><br />@c.Comentario.fecha</td>
-            <td class="contenido">@c.Comentario.contenido</td>
-       </tr>
-    }
-    </tbody>
-    </table>
-}
-else
-{
-    <p>No existen comentarios asociados.</p>
-}
+
 
 <!--Mostramos sector para comentar-->
+<div class="clear"></div>
+<div class="caja-comentario-fb"><div class="fb-comments" data-href="@Request.RawUrl"  data-num-posts="2" data-width="380px"></div></div>
+
 @using (Html.BeginForm())
 {
-    <div class="clear"></div>
-    <p class="comentario">
-        <fieldset>
-            <div class="editor-label">
-                <p>
-                <strong>Escriba un comentario.</strong> @Html.ValidationMessageFor(x => x.comentario)
-                </p>
-                @Html.TextAreaFor(x => x.comentario, new { style = "width:60%;resize:none;" })
-            </div>
-            <input type="submit" name="button" value="Enviar" />
-            <br />Largo Máximo: 400 carácteres.
-        </fieldset>
-    </p>
-    <br />
+        <!--Caja de comentarios Facebook-->
+        <!--Caja de comentario Normal-->
+        <div class="caja-comentario-normal">
+                <div class="editor-label"> 
+                    @Html.ValidationMessageFor(x => x.comentario)
+                    @Html.TextAreaFor(x => x.comentario, new { style = "resize:none;" })
+                </div>
+                <input type="submit" name="button" value="Enviar" />  Largo Máximo: 400 carácteres.
+        </div>
 }
+<div class="caja-comentario-mostrar">
+    <!--Algun mensaje que mostrar?-->
+    @if(Prueba5.Models.MessageLog.Get().Count>0)
+    {
+        foreach (string s in Prueba5.Models.MessageLog.Get())
+        {
+            <div class="mensaje">@s</div>
+        }
+        Prueba5.Models.MessageLog.Reset();
+    }
+    <!--Mostramos ahora los comentarios-->
+    <!--Primero debemos cargarlos-->
+    @{Model.ComentariosLoad();}
+    <!--Ahora podemos mostrarlos-->
+    @if (Model.ComentariosGet().Count() > 0)
+    {
+        <center><p>Comentarios (@Model.ComentariosGet().Count())</p>
+
+        @foreach (Prueba5.Models.ComentarioInformacion c in Model.ComentariosGet())
+        {
+            <div class="caja-comentario-comentario">
+                <div class="caja-comentario-comentario-head">@c.Comentario.Cuenta.username</div>
+                <div class="caja-comentario-comentario-body">@c.Comentario.contenido</div>
+                <div class="caja-comentario-comentario-footer">
+                    <div class="caja-comentario-comentario-footer-left">@c.Comentario.fecha</div>
+                @if(User.Identity.Name==c.Comentario.Cuenta.username){
+                     <div class="caja-comentario-comentario-footer-right">@Html.ActionLink("Eliminar", "EliminarComentario", new { ComentarioInformacionID = c.ID, link = Request.RawUrl })</div>  
+                }
+                </div>
+                <div class="clear"></div>
+           </div>
+        }
+        </center>
+    }
+    else
+    {
+        <center><p>No existen comentarios asociados.</p></center>
+    }
+</div>
+
+<div class="clear"></div>
+<br />

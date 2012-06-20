@@ -25,7 +25,7 @@ namespace Prueba5.Controllers
             {
                 return CrearInfo(model);
             }
-            if (button == "Buscar")
+            else if (button == "Buscar")
             {
                 return Resultado(model);
             }

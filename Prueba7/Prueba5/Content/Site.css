@@ -217,17 +217,20 @@ ul#menu li.selected a {
 
 fieldset {
     border: 1px solid #fff;
-    padding: 0 1.4em 1.4em 1.4em;
+    padding: 1.4em 1.4em 1.4em 1.4em;
     margin: 0 0 1.5em 0;
+}
+
+fieldset#comentario
+{
+    border: 1px solid #fff;
+    /*padding: 1.4em 1.4em 1.4em 1.4em;*/
+    margin: 1.5em;
 }
 
 legend {
     font-size: 1.2em;
     font-weight: bold;
-}
-
-textarea {
-    min-height: 75px;
 }
 
 input[type="text"], 
@@ -269,8 +272,14 @@ table {
   margin-bottom: 18px;
 }
 
+.table-comentario
+{
+    width:80%;
+    margin-bottom: 18px;
+    }
+
 .table th,
-.table td {
+.table td,.table-comentario {
   padding: 8px;
   line-height: 18px;
   text-align: left;
@@ -278,7 +287,7 @@ table {
   border-top: 1px solid #dddddd;
 }
 
-.table th {
+.table th,.table-comentario {
   font-weight: bold;
   width:auto;
 }
@@ -298,13 +307,17 @@ td.recorrido
     color:#222;
 }
 
-.table thead th {
+.table thead th,
+.table-comentario thead th
+{
   vertical-align: bottom;
   color:#000;
 }
 
 .table tbody tr:hover td,
-.table tbody tr:hover th {
+.table tbody tr:hover th ,
+.table-comentario tbody tr:hover td, 
+.table-comentario tbody tr:hover th{
   background-color: #BBFFBB;
 }
 
@@ -422,10 +435,98 @@ ul#logindisplay li
 {
     color:Green;
     font-size: 2em;
+    text-align:center;
 }
 
 /*Comentarios*/
 p.comentario
 {
     text-align:center;
+}
+
+.caja-comentario
+{
+    width:100%;
+    margin:auto;
+}
+
+.caja-comentario-normal
+{
+    background-color:#BDFFBD;
+    width:48%;
+    border-top-width:5px;
+    border-top-color:Black;
+    text-align:center;
+    float:right;
+    height:97px;
+    margin:auto;
+}
+
+.caja-comentario-mostrar
+{
+    width:48%;
+    border-top-width:10px;
+    text-align:center;
+    height:auto;
+    margin:auto;
+    float:right;
+}
+
+.caja-comentario-comentario
+{
+    width:100%;
+    height:auto;
+    margin:auto;
+}
+
+.caja-comentario-comentario-head
+{
+    height:15px;
+    width:auto;
+    text-align:left;
+    padding:2px 0px 2px 2px;
+    font-style:inherit;
+}
+
+.caja-comentario-comentario-body
+{
+    height:auto;
+    width:auto;
+    padding:10px;
+    text-align:left;
+}
+
+.caja-comentario-comentario-footer
+{
+    width:auto;
+    text-align:left;
+    height:10px;
+}
+
+.caja-comentario-comentario-footer-right
+{
+    width:50%;
+    text-align:left;
+    float:right;
+}
+
+.caja-comentario-comentario-footer-left
+{
+    width:50%;
+    float:left;
+}
+
+
+
+
+
+textarea {
+    min-height: 30px;
+    width:330px;
+    font-size:small;
+}
+
+.caja-comentario-fb
+{
+    float:left;
 }

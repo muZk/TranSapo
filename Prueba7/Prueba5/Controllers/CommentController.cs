@@ -60,5 +60,18 @@ namespace Prueba5.Controllers
             return Json(comentario.Length > 3 && comentario.Length < 400);
         }
 
+        public ActionResult EliminarComentario(int ComentarioInformacionID,string link)
+        {
+            TranSapoContext db = new TranSapoContext();
+            ComentarioInformacion comentarioInformacion = db.comentarioInformacion.Find(ComentarioInformacionID);
+            Comentario comentario = comentarioInformacion.Comentario;
+            db.comentarioInformacion.Remove(comentarioInformacion);
+            db.comentario.Remove(comentario);
+            db.SaveChanges();
+            MessageLog.Add("Su mensaje ha sido eliminado.");
+            return Redirect(link);
+        }
+
+
     }
 }

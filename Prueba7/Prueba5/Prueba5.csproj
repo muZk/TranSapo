@@ -77,6 +77,7 @@
     <Compile Include="Backup\XMLBackup.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
+    <Compile Include="Controllers\RestriccionesController.cs" />
     <Compile Include="Controllers\Testing\EstadoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Testing\InformacionController.cs" />
@@ -94,9 +95,11 @@
     <Compile Include="Models\Cuenta.cs" />
     <Compile Include="Models\Informacion.cs" />
     <Compile Include="Models\IngresarInformacion.cs" />
+    <Compile Include="Models\MessageLog.cs" />
     <Compile Include="Models\Paradero.cs" />
     <Compile Include="Models\Recorrido.cs" />
     <Compile Include="Models\RecorridosParadero.cs" />
+    <Compile Include="Models\RestriccionesModel.cs" />
     <Compile Include="Models\TranSapoContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -276,6 +279,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Testing\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Restricciones\Index.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

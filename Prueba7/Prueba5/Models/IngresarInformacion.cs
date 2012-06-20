@@ -31,6 +31,7 @@ namespace Prueba5.Models
 
     public class ResultadoBusqueda
     {
+        // Parametros de Busqueda
         public string Recorrido { get; set; }
         public int Lejania { get; set; }
         public string NombreEstado { get; set; }
@@ -39,10 +40,12 @@ namespace Prueba5.Models
         public int Informacion_ID { get; set; }
         public int Cuenta_ID { get; set; }
 
+        // Parametros de Comentarios
         [MaxLength(400,ErrorMessage="Mensaje debe contener menos de 400 carácteres")]
         [MinLength(3,ErrorMessage="Mensaje debe contener al menos 3 carácteres")]
         [Remote("ValidadorComentario","Comment", HttpMethod = "POST", ErrorMessage = "Por favor, siga el fomato.")]
         public string comentario { get; set; }
+        private IQueryable<ComentarioInformacion> ComentariosInformacion;
 
         public string Time()
         {
@@ -103,12 +106,18 @@ namespace Prueba5.Models
         }
 
         #region Busquedas Avanzadas
-        public IQueryable<ComentarioInformacion> ObtenerComentarioInformacion()
+
+        // Iniciador de los comentarios
+        public void ComentariosLoad()
         {
             TranSapoContext db = new TranSapoContext();
             // Comentarios puros de la informacion
-            var query = from ComentarioInformacion c in db.comentarioInformacion where c.InformacionID == this.Informacion_ID select c;
-            return query;
+            ComentariosInformacion = from ComentarioInformacion c in db.comentarioInformacion where c.InformacionID == this.Informacion_ID select c;
+        }
+
+        public IQueryable<ComentarioInformacion> ComentariosGet()
+        {
+            return ComentariosInformacion;
         }
         #endregion
 
