@@ -84,3 +84,20 @@ C:\Users\muZk\Github\TranSapo\Prueba7\Prueba5\obj\Debug\ResolveAssemblyReference
 C:\Users\muZk\Github\TranSapo\Prueba7\Prueba5\obj\Debug\Prueba5.dll
 C:\Users\muZk\Github\TranSapo\Prueba7\Prueba5\obj\Debug\Prueba5.pdb
 C:\Users\muZk\Github\TranSapo\Prueba7\Prueba5\obj\Debug\Prueba5.g.resources
+C:\Users\Ivania\Documents\ing de software\neuva\Prueba7\Prueba5\bin\Prueba5.dll
+C:\Users\Ivania\Documents\ing de software\neuva\Prueba7\Prueba5\bin\Prueba5.pdb
+C:\Users\Ivania\Documents\ing de software\neuva\Prueba7\Prueba5\bin\EntityFramework.dll
+C:\Users\Ivania\Documents\ing de software\neuva\Prueba7\Prueba5\bin\Hammock.ClientProfile.dll
+C:\Users\Ivania\Documents\ing de software\neuva\Prueba7\Prueba5\bin\Hammock.dll
+C:\Users\Ivania\Documents\ing de software\neuva\Prueba7\Prueba5\bin\Newtonsoft.Json.dll
+C:\Users\Ivania\Documents\ing de software\neuva\Prueba7\Prueba5\bin\TweetSharp.dll
+C:\Users\Ivania\Documents\ing de software\neuva\Prueba7\Prueba5\bin\EntityFramework.xml
+C:\Users\Ivania\Documents\ing de software\neuva\Prueba7\Prueba5\bin\Hammock.pdb
+C:\Users\Ivania\Documents\ing de software\neuva\Prueba7\Prueba5\bin\Hammock.ClientProfile.pdb
+C:\Users\Ivania\Documents\ing de software\neuva\Prueba7\Prueba5\bin\Newtonsoft.Json.pdb
+C:\Users\Ivania\Documents\ing de software\neuva\Prueba7\Prueba5\bin\Newtonsoft.Json.xml
+C:\Users\Ivania\Documents\ing de software\neuva\Prueba7\Prueba5\bin\TweetSharp.pdb
+C:\Users\Ivania\Documents\ing de software\neuva\Prueba7\Prueba5\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Ivania\Documents\ing de software\neuva\Prueba7\Prueba5\obj\Debug\Prueba5.g.resources
+C:\Users\Ivania\Documents\ing de software\neuva\Prueba7\Prueba5\obj\Debug\Prueba5.dll
+C:\Users\Ivania\Documents\ing de software\neuva\Prueba7\Prueba5\obj\Debug\Prueba5.pdb
