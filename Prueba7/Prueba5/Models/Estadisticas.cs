@@ -46,12 +46,13 @@ namespace Prueba5.Models
             String s = DateTime.Now.Date.ToString("dd-MM-yyyy");
             DateTime hora = DateTime.ParseExact(s+" "+ Hora+ ":00", "dd-M-yyyy HH:mm:ss",null);
             int interval = rangoHora * 2 / intervaloHora; //cant de intervaolos
-           hora =  hora.Subtract(new TimeSpan(0,rangoHora,0));
+           
+            hora =  hora.Subtract(new TimeSpan(0,rangoHora,0));
             List<DateTime> horasProbar = new List<DateTime>();
             datos = new DatosRestriccion();
-           int i = 0;
+            int i = 0;
             int j = 0;
-
+            datos.horas = new List<string>();
             while (j < rangoFecha)
             {
                 hora = hora.Subtract(new TimeSpan(j, 0, 0, 0));
@@ -59,6 +60,7 @@ namespace Prueba5.Models
                 while (i <= interval)
                 {
                     horasProbar.Add(hora.AddMinutes(intervaloHora * i));
+                    datos.horas.Add(hora.AddMinutes(intervaloHora * i).TimeOfDay.ToString());
                     i++;
                 }
                 j++;
@@ -78,13 +80,14 @@ namespace Prueba5.Models
         public string paradero { get; set; }
         public List<DateTime> fechas { get; set; }
         public int cantConsultasxDia {get;set;}
+        public List<string> horas { get; set; }
     }
 
     public class ResultadosEstadisticas
     {
         public string recorrido { get; set; }
         public string paradero { get; set; }
-        public List<DateTime> fechas { get; set; }
-       public int[] cantidad { get; set; }
+        public int[,] cantidad { get; set; }
+        public List<string> horas { get; set; }
     }
 }

@@ -22,30 +22,32 @@ namespace Prueba5.Controllers
             model.armarRestricciones();
             DatosRestriccion d = model.datos;
             ResultadosEstadisticas r = buscar(d);
-
-            return View(model);
+            
+            return View("Resultado", r);
         }
 
-        public ResultadosEstadisticas buscar(DatosRestriccion d)
+        private ResultadosEstadisticas buscar(DatosRestriccion d)
         {
             ResultadosEstadisticas r = new ResultadosEstadisticas();
             TranSapoContext db = new TranSapoContext();
             List<DateTime> fechas = d.fechas;
             int consultasxdia = d.cantConsultasxDia;
             int dias = fechas.Count / consultasxdia;
-            int contadorDia = 1;
             int j = 0;
-            r.cantidad = new int[fechas.Count];
-            while (j < d.fechas.Count-1 && contadorDia<=dias)
+            int i = 0;
+            r.cantidad = new int[consultasxdia, dias];
+
+            while (i < consultasxdia-1)
             {
-                for (int i = j; i < consultasxdia*contadorDia-1; i++)
+                while (j < dias)
                 {
-                    r.cantidad[j] = obtenerCantidad(d.paradero, d.recorrido, fechas[i], fechas[i + 1], db);
+                    r.cantidad[i, j] = obtenerCantidad(d.paradero, d.recorrido, fechas[i + j * consultasxdia], fechas[i + j * consultasxdia + 1], db);
                     j++;
                 }
-                contadorDia++;
+                i++;
             }
-            r.fechas = fechas;
+            r.horas = d.horas;
+            r.cantidad = selectImportantes(r.cantidad, consultasxdia, dias);
             r.paradero = d.paradero;
             r.recorrido = d.recorrido;
 
@@ -62,6 +64,48 @@ namespace Prueba5.Controllers
                        select i;
 
             return cant.Count();
+        }
+
+        private int[,] selectImportantes(int[,] n, int consultasxdia, int dias)
+        {
+            int[,] nuevo = null;
+            int i = 0; int j = 0;
+            int sumActual = 0;
+            while (i < consultasxdia - 1)
+            {
+                while (j < dias)
+                {
+                    sumActual += n[i, j];
+                    j++;
+                }
+
+                sumActual /= dias;
+                if (sumActual > 0)
+                {
+                    nuevo = addToArray(nuevo, sumActual, i);
+                }
+                i++; 
+            }
+
+            return nuevo;
+        }
+
+        private int[,] addToArray(int[,] n, int cant, int indice)
+        {
+            if (n == null)
+            {
+                n = new int[0, 2];
+            }
+            int[,] nuevo = new int[n.GetLength(0)+ 1, 2];
+            int i = 0;
+            for (; i < n.GetLength(0); i++)
+            {
+                nuevo[i, 0] = n[i, 0];
+                nuevo[i, 1] = n[i, 1];
+            }
+            nuevo[i, 0] = cant;
+            nuevo[i, 1] = indice;
+            return nuevo;
         }
     }
 }
