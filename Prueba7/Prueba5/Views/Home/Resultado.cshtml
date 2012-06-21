@@ -16,9 +16,6 @@
     <thead>
         <tr>
             <th>
-                Recorrido
-            </th>
-            <th>
                 Lo que está pasando...
             </th>
             <th>
@@ -37,7 +34,6 @@
         @foreach (var q in Model.ResultadoBusqueda)
         {
             <tr>
-                <td><strong>@q.Recorrido</strong></td>
                 <td>@q.ObtenerLejania()</td>
                 <td>@q.NombreEstado</td>
                 <td>@q.Time()</td>
@@ -46,7 +42,7 @@
                     @using (Html.BeginForm())
                     {
                         @Html.ActionLink("Comentar", "view", "Comment",
-                             new { Recorrido = q.Recorrido, Lejania = q.Lejania, NombreEstado = q.NombreEstado, Fecha = q.Fecha, Username = q.Username, Cuenta_ID = q.Cuenta_ID, Informacion_ID = q.Informacion_ID }, null);
+                             new { Recorrido = q.Recorrido, Lejania = q.Lejania, NombreEstado = q.NombreEstado, Fecha = q.Fecha, Username = q.Username, Cuenta_ID = Prueba5.Models.Cuentas.Get(User.Identity.Name,new Prueba5.Models.TranSapoContext()).ID, Informacion_ID = q.Informacion_ID }, null);
                     }
                 </td>
             </tr>
