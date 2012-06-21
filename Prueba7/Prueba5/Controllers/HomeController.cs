@@ -293,7 +293,8 @@ namespace Prueba5.Controllers
         /// </summary>
         private int ObtenerIdEstado(List<string> ListaParametros)
         {
-            int estado = 2;
+            string estado = "Vacío";
+            int estado_id = 0;
             bool encontrado = false;
             foreach (string Estado in ListaParametros)
             {
@@ -302,32 +303,41 @@ namespace Prueba5.Controllers
                     switch (Estado)
                     {
                         case "PA":
-                            estado = 1;
+                            estado = "Panne";
                             encontrado = true;
                             break;
                         case "V":
-                            estado = 2;
+                            estado = "Vacío";
                             encontrado = true;
                             break;
                         case "LL":
-                            estado = 3;
+                            estado = "Lleno";
                             encontrado = true;
                             break;
                         case "D":
-                            estado = 4;
+                            estado = "Detenido";
                             encontrado = true;
                             break;
                         case "PR":
-                            estado = 5;
+                            estado = "Problemas";
                             encontrado = true;
                             break;
                         default:
-                            estado = 2;
+                            estado = "Vacío";
                             break;
                     }
                 }
             }
-            return estado;
+            TranSapoContext db = new TranSapoContext();
+            var query = from Estado e in db.Estados
+                        where e.NombreEstado == estado
+                        select e.ID;
+            foreach (int a in query)
+            {
+                estado_id = a; break;
+            }
+
+            return estado_id;
         }
 
         /// <summary>
