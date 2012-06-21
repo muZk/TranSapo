@@ -131,9 +131,8 @@ footer,
 
 .mainRight
 {
-    background-color:White;
-    width: 230px;
-    height: 750px;
+    width: 150px;
+    height: auto;
     float:right;
     padding:10px;
     margin:auto;
@@ -141,20 +140,18 @@ footer,
 
 .mainLeft
 {
-    background-color:White;
     float:left;
     padding:10px;
     margin:auto;
     text-align:center;
-    height: 750px;
-    width:470px;
+    height: auto;
+    width:550px;
 }
 
 .mainBottom
 {
-    background-color:White;
     clear:both;
-    width:700px;
+    width:550px;
 }
 
 .clear
