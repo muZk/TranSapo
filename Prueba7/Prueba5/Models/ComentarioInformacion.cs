@@ -16,5 +16,7 @@ namespace Prueba5.Models
             public virtual int? InformacionID { get; set; }
             public virtual Comentario Comentario { get; set; }
             public virtual int? ComentarioID { get; set; }
+            public virtual Comentario Comentado { get; set; }
+            public virtual int? ComentadoID { get; set; }
     }
 }

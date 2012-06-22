@@ -112,13 +112,46 @@ namespace Prueba5.Models
         {
             TranSapoContext db = new TranSapoContext();
             // Comentarios puros de la informacion
-            ComentariosInformacion = from ComentarioInformacion c in db.comentarioInformacion where c.InformacionID == this.Informacion_ID select c;
+            ComentariosInformacion = from ComentarioInformacion c in db.comentarioInformacion where c.InformacionID == this.Informacion_ID orderby c.Comentario.fecha descending select c;
         }
 
         public IQueryable<ComentarioInformacion> ComentariosGet()
         {
             return ComentariosInformacion;
         }
+
+        // Gestion de fecha
+        public static string FechaStr(DateTime d)
+        {
+            TimeSpan temp = DateTime.Now.Subtract(d);
+            int dias = (int)temp.Days;
+            int horas = (int)temp.Hours;
+            int minutos = (int)temp.Minutes;
+            int segundos = (int)temp.Seconds;
+            string result = "";
+            if (dias > 0)
+                if(dias==1)
+                    result = string.Format("Hace {0} día", dias);
+                else
+                    result = string.Format("Hace {0} días", dias);
+            else if (horas > 0)
+                if(horas==1)
+                    result = string.Format("Hace {0} hora", horas);
+                else
+                    result = string.Format("Hace {0} horas", horas);   
+            else if (minutos > 0)
+                if (minutos == 1)
+                    result = string.Format("Hace {0} minuto", minutos);
+                else
+                    result = string.Format("Hace {0} minutos", minutos);
+            else
+                if(segundos == 1)
+                    result = string.Format("Hace {0} segundo", segundos);
+                else
+                    result = string.Format("Hace {0} segundos", segundos);
+            return result;
+        }
+
         #endregion
 
     }

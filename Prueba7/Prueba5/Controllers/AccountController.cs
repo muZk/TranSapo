@@ -55,7 +55,19 @@ namespace Prueba5.Controllers
             service.AuthenticateWith(accessToken.Token, accessToken.TokenSecret);
             TwitterUser user = service.VerifyCredentials();
 
-            FormsAuthentication.SetAuthCookie(user.ScreenName, false);
+            FormsAuthentication.SetAuthCookie("@"+user.ScreenName, false);
+            
+            // Agregamos usuario.
+            TranSapoContext db = new TranSapoContext();
+            if (Cuentas.Get("@" + user.ScreenName, db) == null) // primer login
+            {
+                Cuenta cuenta = new Cuenta();
+                cuenta.validado = true;
+                cuenta.username = "@" + user.ScreenName;
+                db.Cuentas.Add(cuenta);
+                db.SaveChanges();
+            }
+
 
             return RedirectToAction("Index", "Home");
         }
