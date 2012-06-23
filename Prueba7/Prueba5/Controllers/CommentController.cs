@@ -29,7 +29,7 @@ namespace Prueba5.Controllers
         }
 
         [HttpPost]
-        public ActionResult comentar(string url,string comentario,int InformacionID)
+        public ActionResult comentar(string url, string comentario, int InformacionID)
         {
             if (comentario == null || comentario == "" || comentario.Trim() == "")
                 MessageLog.AddError("El mensaje no puede estar vacío.");
@@ -65,7 +65,7 @@ namespace Prueba5.Controllers
             return Redirect(url);
         }
 
-        public ActionResult EliminarComentario(int ComentarioInformacionID,string link)
+        public ActionResult EliminarComentario(int ComentarioInformacionID, string link)
         {
             TranSapoContext db = new TranSapoContext();
             ComentarioInformacion comentarioInformacion = db.comentarioInformacion.Find(ComentarioInformacionID);
@@ -74,6 +74,42 @@ namespace Prueba5.Controllers
             db.comentario.Remove(comentario);
             db.SaveChanges();
             MessageLog.Add("Su mensaje ha sido eliminado.");
+            return Redirect(link);
+        }
+
+        public ActionResult megustacomentario(int ComentarioInformacionID, string link)
+        {
+            TranSapoContext db = new TranSapoContext();
+            ComentarioInformacion comentarioInformacion = db.comentarioInformacion.Find(ComentarioInformacionID);
+            comentarioInformacion.MeGusta++;
+            db.SaveChanges();
+            return Redirect(link);
+        }
+
+        public ActionResult nomegustacomentario(int ComentarioInformacionID, string link)
+        {
+            TranSapoContext db = new TranSapoContext();
+            ComentarioInformacion comentarioInformacion = db.comentarioInformacion.Find(ComentarioInformacionID);
+            comentarioInformacion.NoMeGusta++;
+            db.SaveChanges();
+            return Redirect(link);
+        }
+
+        public ActionResult megustainfo(int InformacionID, string link)
+        {
+            TranSapoContext db = new TranSapoContext();
+            Informacion informacion = db.Informaciones.Find(InformacionID);
+            informacion.MeGusta++;
+            db.SaveChanges();
+            return Redirect(link);
+        }
+
+        public ActionResult nomegustainfo(int InformacionID, string link)
+        {
+            TranSapoContext db = new TranSapoContext();
+            Informacion informacion = db.Informaciones.Find(InformacionID);
+            informacion.NoMeGusta++;
+            db.SaveChanges();
             return Redirect(link);
         }
 

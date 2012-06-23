@@ -17,6 +17,7 @@ namespace Prueba5.Models
             public virtual int RecorridoID { get; set; }
             public virtual Cuenta Cuenta { get; set; }
             public virtual int CuentaID { get; set; }
-        
+            public int MeGusta { get; set; }
+            public int NoMeGusta { get; set; }
     }
 }

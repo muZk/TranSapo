@@ -118,3 +118,20 @@ C:\Users\Ivania\Documents\Presentación ing software\ing de software\neuva\Prueb
 C:\Users\Ivania\Documents\Presentación ing software\ing de software\neuva\Prueba7\Prueba5\obj\Debug\Prueba5.g.resources
 C:\Users\Ivania\Documents\Presentación ing software\ing de software\neuva\Prueba7\Prueba5\obj\Debug\Prueba5.dll
 C:\Users\Ivania\Documents\Presentación ing software\ing de software\neuva\Prueba7\Prueba5\obj\Debug\Prueba5.pdb
+C:\Users\felpudito\Documents\GitHub\TranSapo\Prueba7\Prueba5\bin\Prueba5.dll
+C:\Users\felpudito\Documents\GitHub\TranSapo\Prueba7\Prueba5\bin\Prueba5.pdb
+C:\Users\felpudito\Documents\GitHub\TranSapo\Prueba7\Prueba5\bin\EntityFramework.dll
+C:\Users\felpudito\Documents\GitHub\TranSapo\Prueba7\Prueba5\bin\Hammock.ClientProfile.dll
+C:\Users\felpudito\Documents\GitHub\TranSapo\Prueba7\Prueba5\bin\Hammock.dll
+C:\Users\felpudito\Documents\GitHub\TranSapo\Prueba7\Prueba5\bin\Newtonsoft.Json.dll
+C:\Users\felpudito\Documents\GitHub\TranSapo\Prueba7\Prueba5\bin\TweetSharp.dll
+C:\Users\felpudito\Documents\GitHub\TranSapo\Prueba7\Prueba5\bin\EntityFramework.xml
+C:\Users\felpudito\Documents\GitHub\TranSapo\Prueba7\Prueba5\bin\Hammock.pdb
+C:\Users\felpudito\Documents\GitHub\TranSapo\Prueba7\Prueba5\bin\Hammock.ClientProfile.pdb
+C:\Users\felpudito\Documents\GitHub\TranSapo\Prueba7\Prueba5\bin\Newtonsoft.Json.pdb
+C:\Users\felpudito\Documents\GitHub\TranSapo\Prueba7\Prueba5\bin\Newtonsoft.Json.xml
+C:\Users\felpudito\Documents\GitHub\TranSapo\Prueba7\Prueba5\bin\TweetSharp.pdb
+C:\Users\felpudito\Documents\GitHub\TranSapo\Prueba7\Prueba5\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\felpudito\Documents\GitHub\TranSapo\Prueba7\Prueba5\obj\Debug\Prueba5.g.resources
+C:\Users\felpudito\Documents\GitHub\TranSapo\Prueba7\Prueba5\obj\Debug\Prueba5.dll
+C:\Users\felpudito\Documents\GitHub\TranSapo\Prueba7\Prueba5\obj\Debug\Prueba5.pdb

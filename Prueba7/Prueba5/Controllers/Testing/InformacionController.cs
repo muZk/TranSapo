@@ -121,5 +121,24 @@ namespace Prueba5.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
+
+        public ActionResult megustainfo(int informacionID, string link)
+        {
+            TranSapoContext db = new TranSapoContext();
+            Informacion informacion = db.Informaciones.Find(informacionID);
+            informacion.MeGusta++;
+            db.SaveChanges();
+            return Redirect(link);
+        }
+
+        public ActionResult nomegustainfo(int informacionID, string link)
+        {
+            TranSapoContext db = new TranSapoContext();
+            Informacion informacion = db.Informaciones.Find(informacionID);
+            informacion.NoMeGusta++;
+            db.SaveChanges();
+            return Redirect(link);
+        }
+
     }
 }

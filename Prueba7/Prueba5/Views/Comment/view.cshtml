@@ -27,16 +27,18 @@
         </tbody>
     </table>
 
+    <div class="informacion-megusta-link">@Html.ActionLink("Me gusta", "megustainfo", new { InformacionID = Model.Informacion_ID, link = Request.RawUrl })</div>
+    <div class="informacion-megusta-counter">@Model.MeGusta</div>  
+    <div class="informacion-nomegusta-link">@Html.ActionLink("No me gusta", "nomegustainfo", new { InformacionID = Model.Informacion_ID, link = Request.RawUrl })</div>
+    <div class="informacion-megusta-counter">@Model.NoMeGusta</div> 
 
 <!--Mostramos sector para comentar-->
 <div class="clear"></div>
 <div class="caja-comentario">
+    <div class="caja-comentario-fb"><div class="fb-comments" data-href="@Request.RawUrl"  data-num-posts="2" data-width="380px"></div>
+</div>
 
-<div class="caja-comentario-fb"><div class="fb-comments" data-href="@Request.RawUrl"  data-num-posts="2" data-width="380px"></div></div>
-
-
-
-@using (Html.BeginForm("comentar", "comment", new { url = Request.RawUrl, InformacionID = Model.Informacion_ID }))
+@using (Html.BeginForm("comentar", "comment", new { url = Request.RawUrl, InformacionID = Model.Informacion_ID, link = Request.RawUrl }))
 {
     if (Prueba5.Models.MessageLog.GetError().Count == 0)
     {
@@ -90,6 +92,10 @@
                 </div>
                 <div class="caja-comentario-comentario-body">@c.Comentario.contenido</div>
                 <div class="caja-comentario-comentario-footer">
+                    <div class="caja-comentario-comentario-footer-left">@Html.ActionLink("Me gusta", "megustacomentario", new { ComentarioInformacionID = c.ID, link = Request.RawUrl })</div> 
+                    <div class="caja-comentario-comentario-footer-megustacount">@c.MeGusta</div>
+                    <div class="caja-comentario-comentario-footer-left">@Html.ActionLink("No me gusta", "nomegustacomentario", new { ComentarioInformacionID = c.ID, link = Request.RawUrl })</div>
+                    <div class="caja-comentario-comentario-footer-nomegustacount">@c.NoMeGusta</div>
                     @if (User.Identity.Name == c.Comentario.Cuenta.username)
                     {
                          <div class="caja-comentario-comentario-footer-left">@Html.ActionLink("Eliminar", "EliminarComentario", new { ComentarioInformacionID = c.ID, link = Request.RawUrl })</div>  
