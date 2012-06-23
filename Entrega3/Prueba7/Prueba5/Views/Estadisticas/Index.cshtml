@@ -1,0 +1,112 @@
+﻿@model Prueba5.Models.Estadisticas
+
+@{
+    ViewBag.Title = "Ingresar restricciones";
+}
+
+<h2>Ingresar restricciones de búsqueda</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Estadisticas</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.recorrido)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.recorrido)
+            @Html.ValidationMessageFor(model => model.recorrido)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.paradero)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.paradero)
+            @Html.ValidationMessageFor(model => model.paradero)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Hora)
+        </div>
+        <div class="editor-field">
+             <select name="Hora"> 
+                <option>00:00</option> 
+                <option>01:00</option> 
+                <option>02:00</option>
+                <option>03:00</option> 
+                <option>04:00</option> 
+                <option>05:00</option> 
+                <option>06:00</option>  
+                <option selected="true">07:00</option> 
+                <option>08:00</option>
+                <option>09:00</option> 
+                <option>10:00</option> 
+                <option>11:00</option> 
+                <option>12:00</option>
+                <option>13:00</option> 
+                <option>14:00</option> 
+                <option>15:00</option> 
+                <option>16:00</option>
+                <option>17:00</option> 
+                <option>18:00</option>
+                <option>19:00</option>  
+                <option>20:00</option> 
+                <option>21:00</option> 
+                <option>22:00</option> 
+                <option>23:00</option> 
+            </select> 
+            @Html.ValidationMessageFor(model => model.Hora)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.rangoHora)
+        </div>
+        <div class="editor-field">
+            <select name="rangoHora"> 
+                <option selected="true" value="15">15 minutos</option> 
+                <option value="30">30 minutos</option> 
+                <option value="45">45 minutos</option>
+                <option value ="60">1 hora</option>
+            </select> 
+            @Html.ValidationMessageFor(model => model.rangoHora)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.intervaloHora)
+        </div>
+        <div class="editor-field">
+            <select name="intervaloHora" style="WIDTH: 40px"> 
+                <option value="1">1 minuto</option> 
+                <option value="3">3 minutos</option> 
+                <option value="5" selected="true">5 minutos</option>
+                <option value="15">15 minutos</option>
+            </select> 
+            @Html.ValidationMessageFor(model => model.intervaloHora)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.rangoFecha)
+        </div>
+        <div class="editor-field">
+              <select name="rangoFecha">
+              <option value = "2">ultimos dos días</option> 
+                <option value = "7" selected="true">ultima semana</option> 
+                <option value = "14">ultimas dos semanas</option> 
+                <option value = "30">ultimo mes</option> 
+            </select> 
+            @Html.ValidationMessageFor(model => model.rangoFecha)
+        </div>
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

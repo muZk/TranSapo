@@ -1,0 +1,58 @@
+﻿@model Prueba5.Models.ResultadosEstadisticas
+
+@{
+    ViewBag.Title = "Resultado";
+}
+
+<h2>Resultado</h2>
+
+<fieldset>
+    <legend>ResultadosEstadisticas</legend>
+
+    <div class="display-label">recorrido</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => Model.recorrido)
+    </div>
+
+    <div class="display-label">paradero</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => Model.paradero)
+    </div>
+    <table class="table">
+    <thead>
+        <tr>
+            <th>
+               Entre las
+            </th>
+              <th>
+                ... Y las
+                 </th>
+            <th>
+                Pasaron esta cantidad de micros
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @if (Model.cantidad == null)
+    {
+        <tr>
+         No hay resultados
+         </tr>
+    }
+    else
+    {
+    for (int i = 0; i < Model.cantidad.GetLength(0); i++)
+    {
+        
+            <tr>
+            <td>@Model.horas[i]</td>
+            <td>@Model.horas[i+1]</td>
+            <td>@Model.cantidad[i, 0]</td>
+            </tr>
+    }
+    }
+    </tbody>
+    </table>
+
+</fieldset>
