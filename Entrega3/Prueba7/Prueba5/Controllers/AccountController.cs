@@ -64,6 +64,7 @@ namespace Prueba5.Controllers
                 Cuenta cuenta = new Cuenta();
                 cuenta.validado = true;
                 cuenta.username = "@" + user.ScreenName;
+                cuenta.twitter = user.Url;
                 db.Cuentas.Add(cuenta);
                 db.SaveChanges();
             }

@@ -87,7 +87,14 @@
         {
             <div class="caja-comentario-comentario">
                 <div class="caja-comentario-comentario-head">
-                    <div class="caja-comentario-comentario-head-autor">@c.Comentario.Cuenta.username</div>
+                    @if (c.Comentario.Cuenta.twitter == null)
+                    {
+                        <div class="caja-comentario-comentario-head-autor">@c.Comentario.Cuenta.username</div>
+                    }
+                    else
+                    { 
+                        <div class="caja-comentario-comentario-head-autor"><a href="@c.Comentario.Cuenta.twitter">@c.Comentario.Cuenta</a></div>
+                    }
                     <div class="caja-comentario-comentario-head-fecha">@Prueba5.Models.ResultadoBusqueda.FechaStr(c.Comentario.fecha)</div>
                 </div>
                 <div class="caja-comentario-comentario-body">@c.Comentario.contenido</div>
