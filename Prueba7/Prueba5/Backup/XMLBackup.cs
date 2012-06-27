@@ -121,7 +121,7 @@ namespace Prueba5.Backup
             }
         }
 
-        public static void Load()
+       /*/ public static void Load()
         {
             TranSapoContext db = new Models.TranSapoContext();
             XmlDocument doc = new XmlDocument();
@@ -292,6 +292,6 @@ namespace Prueba5.Backup
             wrtr.Formatting = Formatting.Indented;
             doc.WriteTo(wrtr);
             wrtr.Close();
-        }
+        }*/
     }
 }

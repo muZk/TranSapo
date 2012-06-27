@@ -4,109 +4,150 @@
     ViewBag.Title = "Ingresar restricciones";
 }
 
+@if (!Request.IsAuthenticated)
+{
+    
+   
+    <h2>Para acceder a esta funcionalidad debes estar registrado</h2>
+    <!--Mensajes-->
+    if (Prueba5.Controllers.HomeController.Mensajes.Count > 0)
+    {
+        foreach (string msg in Prueba5.Controllers.HomeController.Mensajes)
+        {
+            <div class="mensaje">@msg</div>
+        }
+        Prueba5.Controllers.HomeController.Mensajes.Clear();
+    }
+    <!--Fin Mensajes-->
+    <p><a href="../Account/login"><strong>Autentifícate</strong></a> para acceder a las estadísticas!</p>
+    <p>¿No tienes cuenta? <a href="../Account/register"><strong>Regístrate</strong></a>, ¡es gratis!</p>
+           
+
+}
+else
+{
+    
+
 <h2>Ingresar restricciones de búsqueda</h2>
 
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+ <h4>Ingresa el recorrido, el paradero y la hora del día para realizar tu búsqueda. Puedes modificar el rango de hora y fecha y la precisión para tener resultados con más o menos exactitud</h4>
+ <table width="450">
+ <tr  style="margin-right" valign="top" align="left">
+             <td>
+                <br />Rango de hora
+                <br>Se refiere a cuántos minutos antes y cuántos minutos después de la hora que especificaste quieres buscar</br>
+                <li>Ej: si elegiste las 7:00 y el rango de 15 minutos, se buscará entre las 6:45 y las 7:15.</li>
+                <br />Rango de fecha
+                <br>Se refiere a cuántos días antes de hoy quiere buscar</br>
+                <li>Ej: si últimas dos semanas, buscará solo en los días de las dos últimas semanas.</li>  
+                <br />Precisión de hora
+                <br>Se refiere a que tan preciso se requiere conocer el tiempo</br>
+                <li>Ej: si elegiste 1 minuto te mostrará minuto a minuto cuántas micros pasaron, si es cada 5 entonces en intervalos de 5 minutos.</li>  
+             
+              </td>
+            </tr></table>
+            <br /> 
 
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
-    <fieldset>
-        <legend>Estadisticas</legend>
+    using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+        <fieldset>
+            <legend>Estadisticas</legend>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.recorrido)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.recorrido)
-            @Html.ValidationMessageFor(model => model.recorrido)
-        </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.recorrido, "Recorrido")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.recorrido)
+                @Html.ValidationMessageFor(model => model.recorrido)
+            </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.paradero)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.paradero)
-            @Html.ValidationMessageFor(model => model.paradero)
-        </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.paradero, "Paradero")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.paradero)
+                @Html.ValidationMessageFor(model => model.paradero)
+            </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Hora)
-        </div>
-        <div class="editor-field">
-             <select name="Hora"> 
-                <option>00:00</option> 
-                <option>01:00</option> 
-                <option>02:00</option>
-                <option>03:00</option> 
-                <option>04:00</option> 
-                <option>05:00</option> 
-                <option>06:00</option>  
-                <option selected="true">07:00</option> 
-                <option>08:00</option>
-                <option>09:00</option> 
-                <option>10:00</option> 
-                <option>11:00</option> 
-                <option>12:00</option>
-                <option>13:00</option> 
-                <option>14:00</option> 
-                <option>15:00</option> 
-                <option>16:00</option>
-                <option>17:00</option> 
-                <option>18:00</option>
-                <option>19:00</option>  
-                <option>20:00</option> 
-                <option>21:00</option> 
-                <option>22:00</option> 
-                <option>23:00</option> 
-            </select> 
-            @Html.ValidationMessageFor(model => model.Hora)
-        </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Hora, "Hora")
+            </div>
+            <div class="editor-field">
+                 <select name="Hora"> 
+                    <option>00:00</option> 
+                    <option>01:00</option> 
+                    <option>02:00</option>
+                    <option>03:00</option> 
+                    <option>04:00</option> 
+                    <option>05:00</option> 
+                    <option>06:00</option>  
+                    <option selected="true">07:00</option> 
+                    <option>08:00</option>
+                    <option>09:00</option> 
+                    <option>10:00</option> 
+                    <option>11:00</option> 
+                    <option>12:00</option>
+                    <option>13:00</option> 
+                    <option>14:00</option> 
+                    <option>15:00</option> 
+                    <option>16:00</option>
+                    <option>17:00</option> 
+                    <option>18:00</option>
+                    <option>19:00</option>  
+                    <option>20:00</option> 
+                    <option>21:00</option> 
+                    <option>22:00</option> 
+                    <option>23:00</option> 
+                </select> 
+                @Html.ValidationMessageFor(model => model.Hora)
+            </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.rangoHora)
-        </div>
-        <div class="editor-field">
-            <select name="rangoHora"> 
-                <option selected="true" value="15">15 minutos</option> 
-                <option value="30">30 minutos</option> 
-                <option value="45">45 minutos</option>
-                <option value ="60">1 hora</option>
-            </select> 
-            @Html.ValidationMessageFor(model => model.rangoHora)
-        </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.rangoHora, "Rango de hora")
+            </div>
+            <div class="editor-field">
+                <select name="rangoHora"> 
+                    <option selected="true" value="15">15 minutos</option> 
+                    <option value="30">30 minutos</option> 
+                    <option value="45">45 minutos</option>
+                    <option value ="60">1 hora</option>
+                </select> 
+                @Html.ValidationMessageFor(model => model.rangoHora)
+            </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.intervaloHora)
-        </div>
-        <div class="editor-field">
-            <select name="intervaloHora" style="WIDTH: 40px"> 
-                <option value="1">1 minuto</option> 
-                <option value="3">3 minutos</option> 
-                <option value="5" selected="true">5 minutos</option>
-                <option value="15">15 minutos</option>
-            </select> 
-            @Html.ValidationMessageFor(model => model.intervaloHora)
-        </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.intervaloHora, "Precisión de hora")
+            </div>
+            <div class="editor-field">
+                <select name="intervaloHora" style="WIDTH: 40px"> 
+                    <option value="1">1 minuto</option> 
+                    <option value="3">3 minutos</option> 
+                    <option value="5" selected="true">5 minutos</option>
+                    <option value="15">15 minutos</option>
+                </select> 
+                @Html.ValidationMessageFor(model => model.intervaloHora)
+            </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.rangoFecha)
-        </div>
-        <div class="editor-field">
-              <select name="rangoFecha">
-              <option value = "2">ultimos dos días</option> 
-                <option value = "7" selected="true">ultima semana</option> 
-                <option value = "14">ultimas dos semanas</option> 
-                <option value = "30">ultimo mes</option> 
-            </select> 
-            @Html.ValidationMessageFor(model => model.rangoFecha)
-        </div>
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.rangoFecha, "Rango de Fecha")
+            </div>
+            <div class="editor-field">
+                  <select name="rangoFecha">
+                  <option value = "2">ultimos dos días</option> 
+                    <option value = "7" selected="true">ultima semana</option> 
+                    <option value = "14">ultimas dos semanas</option> 
+                    <option value = "30">ultimo mes</option> 
+                </select> 
+                @Html.ValidationMessageFor(model => model.rangoFecha)
+            </div>
+            <p>
+                <input type="submit" value="Create" />
+            </p>
+        </fieldset>
+   
+    }
+
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
