@@ -68,6 +68,10 @@ namespace Prueba5.Controllers
                 db.Cuentas.Add(cuenta);
                 db.SaveChanges();
             }
+            else if (Cuentas.Get("@" + user.ScreenName, db).twitter == null)
+            {
+                Cuentas.Get("@" + user.ScreenName, db).twitter = user.Url;
+            }
 
 
             return RedirectToAction("Index", "Home");
