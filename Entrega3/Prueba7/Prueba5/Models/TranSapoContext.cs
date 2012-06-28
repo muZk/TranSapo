@@ -26,6 +26,8 @@ namespace Prueba5.Models
             public DbSet<ComentarioInformacion> comentarioInformacion { get; set; }
             //public DbSet<CallesParadero> callesParadero { get; set; }
             public DbSet<Cuenta> Cuentas { get; set; }
+            public DbSet<CalificacionComentario> CalificacionComentario { get; set; }
+            public DbSet<CalificacionInformacion> CalificacionInformacion { get; set; }
 
             public void Detach(object entity)
             {

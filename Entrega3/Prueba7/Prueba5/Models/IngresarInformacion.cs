@@ -39,8 +39,6 @@ namespace Prueba5.Models
         public string Username { get; set; }
         public int Informacion_ID { get; set; }
         public int Cuenta_ID { get; set; }
-        public int MeGusta { get; set; }
-        public int NoMeGusta { get; set; }
 
         // Parametros de Comentarios
         [MaxLength(400,ErrorMessage="Mensaje debe contener menos de 400 carácteres")]
@@ -92,6 +90,24 @@ namespace Prueba5.Models
             }
         }
 
+        public int MeGusta {
+            get 
+            {
+                TranSapoContext db = new TranSapoContext();
+                Informacion temp = db.Informaciones.Find(this.Informacion_ID);
+                return temp.MeGusta;
+            }
+        }
+
+        public int NoMeGusta {
+            get
+            {
+                TranSapoContext db = new TranSapoContext();
+                Informacion temp = db.Informaciones.Find(this.Informacion_ID);
+                return temp.NoMeGusta;
+            }
+        }
+
         public ResultadoBusqueda(string recorrido, int lejania, string nombreestado, DateTime fecha,string username,int Cuenta_ID,int info_id)
         {
             Recorrido = recorrido;
@@ -102,10 +118,6 @@ namespace Prueba5.Models
             Fecha = fecha;
             this.Cuenta_ID = Cuenta_ID;
 
-            TranSapoContext db = new TranSapoContext();
-            Informacion informacion = db.Informaciones.Find(info_id);
-            MeGusta = informacion.MeGusta;
-            NoMeGusta = informacion.NoMeGusta;
         }
 
         public ResultadoBusqueda()

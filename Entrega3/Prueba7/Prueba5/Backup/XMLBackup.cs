@@ -125,9 +125,9 @@ namespace Prueba5.Backup
         {
             TranSapoContext db = new Models.TranSapoContext();
             XmlDocument doc = new XmlDocument();
-            XmlTextReader reader = new XmlTextReader(@"C:\Users\felpudito\Documents\GitHub\TranSapo\Prueba7\Prueba5\Backup\XMLBackup.xml");
+            XmlTextReader reader = new XmlTextReader(@"C:\Users\muZk\Github\TranSapo\Entrega3\Prueba7\Prueba5\Backup\XMLBackup.xml");
             doc.Load(reader);
-            System.IO.StreamWriter rder = new System.IO.StreamWriter(@"C:\Users\felpudito\Documents\GitHub\TranSapo\Prueba7\Prueba5\Backup\XMLBackup.txt");
+            System.IO.StreamWriter rder = new System.IO.StreamWriter(@"C:\Users\muZk\Github\TranSapo\Entrega3\Prueba7\Prueba5\Backup\XMLBackup.txt");
             XmlNodeList list = doc.ChildNodes[0].ChildNodes;
             foreach (XmlNode node in list)
             {

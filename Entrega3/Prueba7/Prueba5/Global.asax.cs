@@ -44,8 +44,9 @@ namespace Prueba5
 
         protected void Application_Start()
         {
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<TranSapoContext>());
-            //Backup.XMLBackup.Load();
+            
+            Database.SetInitializer(new DropCreateDatabaseAlways<TranSapoContext>());
+            Backup.XMLBackup.Load();
             //Backup.XMLBackup.Backup();
             
             AreaRegistration.RegisterAllAreas();

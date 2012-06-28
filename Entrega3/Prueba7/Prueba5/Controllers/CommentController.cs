@@ -79,10 +79,22 @@ namespace Prueba5.Controllers
 
         public ActionResult megustacomentario(int ComentarioInformacionID, string link)
         {
-            TranSapoContext db = new TranSapoContext();
-            ComentarioInformacion comentarioInformacion = db.comentarioInformacion.Find(ComentarioInformacionID);
-            comentarioInformacion.MeGusta++;
-            db.SaveChanges();
+            if (User.Identity.IsAuthenticated)
+            {
+                TranSapoContext db = new TranSapoContext();
+                var query = from CalificacionComentario c in db.CalificacionComentario where c.Cuenta.username==User.Identity.Name select c;
+                if (query.Count() == 0)
+                {
+                    ComentarioInformacion comentarioInformacion = db.comentarioInformacion.Find(ComentarioInformacionID);
+                    comentarioInformacion.MeGusta++;
+                    // Calificacion Comentario
+                    CalificacionComentario calificacionComentario = new CalificacionComentario();
+                    calificacionComentario.Comentario = comentarioInformacion.Comentario;
+                    calificacionComentario.Cuenta = Cuentas.Get(User.Identity.Name, db);
+                    db.CalificacionComentario.Add(calificacionComentario);
+                    db.SaveChanges();
+                }
+            }
             return Redirect(link);
         }
 

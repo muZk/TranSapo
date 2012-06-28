@@ -89,6 +89,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Calificacion.cs" />
     <Compile Include="Models\CallesParadero.cs" />
     <Compile Include="Models\Comentario.cs" />
     <Compile Include="Models\ComentarioInformacion.cs" />

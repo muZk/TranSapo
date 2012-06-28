@@ -253,7 +253,8 @@ namespace Prueba5.Controllers
             {
                 if (count >= limite)
                     break;
-                ListaResultados.Add(new ResultadoBusqueda(q.Recorrido, q.Lejania, q.NombreEstado, q.Fecha, q.Username,q.Cuenta_ID,q.info));
+                ResultadoBusqueda temp = new ResultadoBusqueda(q.Recorrido, q.Lejania, q.NombreEstado, q.Fecha, q.Username, q.Cuenta_ID, q.info);
+                ListaResultados.Add(temp);
                 count++;
             }
             return ListaResultados;
