@@ -2,44 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace Prueba5.Models
 {
     public class Estadisticas
     {
+        [Required(ErrorMessage = "Se te olvidó ingresar el Paradero")]
         public string recorrido { get; set; }
+        [Required(ErrorMessage = "Se te olvidó ingresar el Recorrido")]
         public string paradero { get; set; }
         public int intervaloHora { get; set; }
         public int rangoFecha { get; set; }
         public int rangoHora { get; set; }
         public string Hora { get; set; }
         public DatosRestriccion datos { get; set; }
-
-        private IEnumerable<Paradero> ObtenerParaderos(TranSapoContext db)
-        {
-            var query = from rp in db.recorridosParadero.OrderBy(r => r.NumeroParada)
-                        select rp.Paradero;
-            return query;
-
-        }
-        private IEnumerable<Recorrido> ObtenerRecorridos(string codigo, TranSapoContext db)
-        {
-            if (codigo != null)
-            {
-                var query = from rp in db.recorridosParadero
-                            where rp.Paradero.codigo == codigo
-                            select rp.Recorrido;
-                return query;
-            }
-            return null;
-        }
-        private IEnumerable<Recorrido> ObtenerRecorridos(TranSapoContext db)
-        {
-            var query = from rp in db.recorridosParadero
-                        select rp.Recorrido;
-            return query;
-
-        }
 
         public void armarRestricciones()
         {
